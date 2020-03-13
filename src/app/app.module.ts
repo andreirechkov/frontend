@@ -10,13 +10,15 @@ import { AppComponent } from './app.component';
 import { CutawayComponent } from './core/cutaway/cutaway.component';
 import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
+import { SignRegistrComponent } from './modules/sign-registr/sign-registr.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CutawayComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    SignRegistrComponent
   ],
   imports: [
     BrowserModule,

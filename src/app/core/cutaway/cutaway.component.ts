@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-cutaway',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CutawayComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  private clickOnSign(): void {
+    this.router.navigate(['sign-register']);
   }
-
 }
