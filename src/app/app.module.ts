@@ -10,7 +10,8 @@ import { AppComponent } from './app.component';
 import { CutawayComponent } from './core/cutaway/cutaway.component';
 import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
-import { SignRegistrComponent } from './modules/sign-registr/sign-registr.component';
+import { SignRegisterComponent } from './modules/sign-registr/sign-register.component';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -18,13 +19,14 @@ import { SignRegistrComponent } from './modules/sign-registr/sign-registr.compon
     CutawayComponent,
     HeaderComponent,
     FooterComponent,
-    SignRegistrComponent
+    SignRegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
