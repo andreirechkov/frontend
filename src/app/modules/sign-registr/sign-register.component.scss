@@ -7,10 +7,33 @@
   height: 100vh;
 
   .card-registr {
-    text-align: center;
-    width: 30%;
-    height: 400px;
+    display: flex;
+    flex-direction: column;
     background-color: #ffffff;
-    border-radius: 15px;
+    border-radius: 10px;
+    padding: 50px;
+    .logo {
+      display: flex;
+      background-image: url("src/assets/logo.jpg");
+      height: 35px;
+      width: 37px;
+    }
+    span {
+      margin: 10px 0;
+      text-align: center;
+    }
+    .input-date {
+      input{
+        margin: 10px 0;
+      }
+    }
+    .submit-button {
+      text-align: center;
+      button {
+        width: 80px;
+        height: 35px;
+        margin: 10px 10px;
+      }
+    }
   }
 }

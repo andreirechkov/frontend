@@ -10,19 +10,16 @@ import { Subject } from "rxjs";
 })
 export class SignRegisterComponent implements OnInit, OnDestroy {
 
+  public showRegisterCard = false;
   constructor(private api: ApiService) { }
 
   public destroy$ = new Subject();
 
   ngOnInit() {
-    this.api.getLogin('test')
-      .pipe(
-        takeUntil(this.destroy$)
-      )
-      .subscribe(data => {
-          console.log(data);
-        },
-        error => console.log(error))
+  }
+
+  public clickRegist(): void {
+    this.showRegisterCard = !this.showRegisterCard;
   }
 
   ngOnDestroy() {
@@ -30,3 +27,4 @@ export class SignRegisterComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 }
+
