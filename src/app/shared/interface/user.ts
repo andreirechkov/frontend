@@ -1,7 +1,8 @@
 export interface User {
-  id: number,
+  id?: string,
+  password?: string
   username: string,
-  person: {
+  person?: {
     firstName: string,
     lastName: string,
     email: string,
