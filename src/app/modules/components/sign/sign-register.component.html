@@ -1,6 +1,5 @@
 <div class="fon">
   <form
-    *ngIf="!showRegisterCard"
     [formGroup]="form"
     class="form-signin card-reg"
     (ngSubmit)="clickSignIn()">
@@ -27,14 +26,9 @@
               <span class="help-block">{{ textError('password') }}</span>
             </div>
           </div>
-          <span *ngIf="respErrors" class="help-block">No authorization</span>
+          <span *ngIf="respErrors" class="help-block">Ошибка авторизации</span>
           <div class="submit-button">
-            <input [disabled]="form.invalid" class="btn btn-primary btn-save" type="submit" value="Sing In"/>
-            <button class="btn btn-primary" type="submit" (click)="clickReg()">Register</button>
+            <input [disabled]="form.invalid" class="btn btn-primary btn-save" type="submit" value="Вход"/>
           </div>
       </form>
-
-  <div class="form-signin card-reg" *ngIf="showRegisterCard">
-    <app-registration></app-registration>
-  </div>
 </div>

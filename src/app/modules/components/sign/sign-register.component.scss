@@ -1,0 +1,37 @@
+.fon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../../../assets/login_main.jpg");
+  background-size: cover;
+  height: 100vh;
+
+  .card-reg {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 50px;
+    .input-date {
+      margin: 10px 0;
+    }
+    .submit-button {
+      text-align: center;
+      button {
+        margin: 0 5px;
+      }
+    }
+    span {
+      text-align: center;
+    }
+
+    .has-error {
+      border-color: red;
+    }
+
+    .help-block {
+      margin-left: 10px;
+      color: red;
+    }
+  }
+}

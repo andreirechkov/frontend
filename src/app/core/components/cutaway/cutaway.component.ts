@@ -14,7 +14,7 @@ export class CutawayComponent implements OnInit {
 
   ngOnInit() {}
 
-  private clickOnSign(): void {
-    this.router.navigate(['sign-register']);
+  public clickOnSign(): void {
+    this.router.navigate(['login']);
   }
 }
