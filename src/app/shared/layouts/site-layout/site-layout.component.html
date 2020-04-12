@@ -1,7 +1,13 @@
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
-  <span class="logo"></span>
-  <h5 class="my-0 mr-md-auto font-weight-normal">FirStep</h5>
-  <a class="btn btn-outline-primary" (click)="logout()">Выйти</a>
+<div class="home">
+  <app-header></app-header>
+  <div class="container-fluid">
+    <div class="row test">
+      <nav class="col-sm-2 d-none d-md-block bg-light sidebar">
+        <app-sidenav></app-sidenav>
+      </nav>
+      <main role="main" class="col-sm-10">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </div>
 </div>
-<app-sidenav></app-sidenav>
-<router-outlet></router-outlet>

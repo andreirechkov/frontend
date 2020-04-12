@@ -16,7 +16,9 @@ import { HomeComponent, CutawayComponent, SidenavComponent } from '../app/core/c
 
 import { AuthLayoutComponent, SiteLayoutComponent, TokenInterceptor } from '../app/shared/shared';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HeaderComponent } from './core/components/header/header.component';
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SidenavComponent,
     ChatComponent,
     AuthLayoutComponent,
-    SiteLayoutComponent
+    SiteLayoutComponent,
+    HeaderComponent
   ],
     imports: [
         BrowserModule,
@@ -38,7 +41,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         TabsModule.forRoot(),
         ChartsModule,
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        BsDropdownModule
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

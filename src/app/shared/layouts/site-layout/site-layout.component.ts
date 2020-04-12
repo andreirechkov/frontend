@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-site-layout',
@@ -9,13 +8,9 @@ import {AuthService} from '../../service/auth.service';
 export class SiteLayoutComponent implements OnInit {
 
   constructor(
-    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
   }
 
-  public logout(): void {
-    this.auth.logout();
-  }
 }

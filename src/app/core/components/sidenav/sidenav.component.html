@@ -1,21 +1,12 @@
-<ul class="sidebar-nav">
-  <li *ngFor="let sideNav of sideNavList">
-    <a *ngIf="sideNav.routerLink !== 'logout' && !sideNav.submenu" [routerLink]="sideNav.routerLink"
-       [routerLinkActive]="['active']" (click)="hideSubMenu()"><i class="fas fa-{{ sideNav.icon }}"></i>
-      <span>{{ sideNav.text }}</span>
-    </a>
-    <a class="submenu-item" *ngIf="sideNav.submenu">
-      <p (click)="showSubMenu(sideNav)" [routerLink]="sideNav.routerLink">
-        <strong><i class="fa fa-{{ sideNav.icon }}"></i><span *ngIf="arrowShow">{{ sideNav.text }}</span></strong>
-        <strong class="add-arrow"><i *ngIf="arrowShow" class="fas fa-{{ sideNav.arrow }}"></i></strong>
-      </p>
-      <ul [@openClose]="sideNav.opened">
-        <li *ngFor="let submenu of sideNav.submenu" >
-          <a *ngIf="submenu.routerLink !== 'logout'" [routerLink]="submenu.routerLink" [routerLinkActive]="['active']">
-            <i class="submenu-icon" [ngClass]="{ 'fas fa-circle' : !arrowShow }"></i><span>{{ submenu.text }}</span>
-          </a>
-        </li>
-      </ul>
-    </a>
-  </li>
-</ul>
+<div class="sidebar-sticky">
+  <ul class="nav flex-column">
+    <li class="nav-item" *ngFor="let item of sideNavList">
+      <a [routerLink]="item.link" class="nav-link active">
+        <span class="icon-text">
+          <fa-icon slot="start" [icon]="item.icon"></fa-icon>
+          {{item.name}}
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
