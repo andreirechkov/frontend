@@ -1,3 +1,10 @@
-.test {
-  min-height: 90vh;
+.content {
+  display: flex;
+  .test {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0;
+    background-size: cover;
+  }
 }
+

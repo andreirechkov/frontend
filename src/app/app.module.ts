@@ -16,9 +16,15 @@ import { HomeComponent, CutawayComponent, SidenavComponent } from '../app/core/c
 
 import { AuthLayoutComponent, SiteLayoutComponent, TokenInterceptor } from '../app/shared/shared';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {  FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HeaderComponent } from './core/components/header/header.component';
 import { BsDropdownModule } from 'ngx-bootstrap';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+
+
 
 @NgModule({
   declarations: [
@@ -42,7 +48,11 @@ import { BsDropdownModule } from 'ngx-bootstrap';
         ChartsModule,
         HttpClientModule,
         ReactiveFormsModule,
-        BsDropdownModule
+        BsDropdownModule,
+        MatSnackBarModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatButtonModule
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../shared/service/auth.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {takeUntil} from 'rxjs/operators';
-import {Router} from '@angular/router';
-import {Subject} from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-registration',
@@ -14,6 +14,7 @@ export class RegistrationComponent implements OnInit {
 
   public form: FormGroup;
   public destroy$ = new Subject();
+  public respErrors;
 
   constructor(
     private api: AuthService,
@@ -33,6 +34,14 @@ export class RegistrationComponent implements OnInit {
         typeUser:  ['', [Validators.required]],
       })
     });
+  }
+
+  public hasError(controlName: string): boolean {
+    return (
+      (this.form.get(controlName)?.dirty
+        && this.form.get(controlName).invalid
+      ) || this.respErrors && this.respErrors[controlName]
+    );
   }
 
   public newUser(): void {

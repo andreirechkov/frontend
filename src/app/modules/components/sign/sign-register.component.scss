@@ -7,11 +7,26 @@
   height: 100vh;
 
   .card-reg {
+    font-family: initial;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
     border-radius: 10px;
     padding: 50px;
+    .logo-header {
+      display: flex;
+      font-weight: 400;
+      text-align: center;
+      font-size: 1.75rem;
+      flex-direction: column;
+      .logo {
+        margin-left: 90px;
+        margin-bottom: 10px;
+        background-image: url("../../../../assets/logo.jpg");
+        height: 35px;
+        width: 37px;
+      }
+    }
     .input-date {
       margin: 10px 0;
     }
@@ -19,10 +34,8 @@
       text-align: center;
       button {
         margin: 0 5px;
+        padding: 20px;
       }
-    }
-    span {
-      text-align: center;
     }
 
     .has-error {

@@ -5,8 +5,8 @@ import { User } from '../interface/user';
 import { tap } from 'rxjs/operators';
 import {Router} from '@angular/router';
 
-const API_USERS = "http://127.0.0.1:8000/users/";
-const API_AUTH = "http://127.0.0.1:8000/auth/";
+const API_USERS = "http://127.0.0.1:8000/api/users/";
+const API_AUTH = "http://127.0.0.1:8000/api/auth/";
 
 @Injectable({
   providedIn: 'root'
@@ -15,30 +15,41 @@ const API_AUTH = "http://127.0.0.1:8000/auth/";
 export class AuthService {
 
   private token: string = null;
+  private userId: string = null;
 
   constructor(private http: HttpClient,
               private  router: Router) { }
 
-  public login(user: User): Observable<{token: string}> {
-    return this.http.post<{token: string}>(API_AUTH, user)
+  public login(user: User): Observable<{token: string, id: string}> {
+    return this.http.post<{token: string, id: string}>(API_AUTH, user)
       .pipe(
-        tap(({token}) => {
-          localStorage.setItem('auth-token', token);
-          this.setToken(token);
+        tap(res => {
+          localStorage.setItem('auth-token', res.token);
+          localStorage.setItem('user-id', res.id);
+          this.setToken(res.token, res.id);
         })
       )
+  }
+
+  public getUser(): Observable<User> {
+    return this.http.get<User>(API_USERS + `${this.getUserId()}`);
   }
 
   public register(body): Observable<User> {
     return this.http.post<User>(API_USERS, body);
   }
 
-  public setToken(token: string): void {
+  public setToken(token: string, id?: string): void {
     this.token = token;
+    this.userId = id;
   }
 
   public getToken(): string {
     return this.token;
+  }
+
+  public getUserId(): string {
+    return localStorage.getItem('user-id');
   }
 
   public isAuthenticated(): boolean {

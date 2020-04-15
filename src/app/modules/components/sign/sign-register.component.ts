@@ -80,7 +80,7 @@ export class SignComponent implements OnInit, OnDestroy {
 
     if (this.form.get(controlName).errors) {
       if (this.form.get(controlName).errors.required) {
-        return `${controlName} is required`;
+        return 'Введите данные';
         } else if (this.form.get(controlName).errors.email) {
           return `${controlName} is not valid email`;
         } else if (this.form.get(controlName).errors.validLatin) {
