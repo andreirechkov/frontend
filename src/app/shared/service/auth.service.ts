@@ -6,7 +6,7 @@ import { tap } from 'rxjs/operators';
 import {Router} from '@angular/router';
 
 const API_USERS = "http://127.0.0.1:8000/users/";
-const API_AUTH = "http://127.0.0.1:8000/auth/";
+const API_AUTH = "http://127.0.0.1:8000/api/auth/";
 
 @Injectable({
   providedIn: 'root'
