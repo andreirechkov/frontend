@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -19,10 +19,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {  FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HeaderComponent } from './core/components/header/header.component';
 import { BsDropdownModule } from 'ngx-bootstrap';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatButtonModule} from '@angular/material/button';
 
 
 
@@ -49,10 +45,7 @@ import {MatButtonModule} from '@angular/material/button';
         HttpClientModule,
         ReactiveFormsModule,
         BsDropdownModule,
-        MatSnackBarModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatButtonModule
+        FormsModule
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

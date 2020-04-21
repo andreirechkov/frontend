@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CometChat } from '@cometchat-pro/chat';
 import { environment } from '../../../../environments/environment';
 import {AuthService} from '../../../shared/service/auth.service';
+=======
+import {WebsocketService} from '../../../shared/service/websocket.service';
+>>>>>>> Angular-Django-Chat
 
 @Component({
   selector: 'app-chat',
@@ -11,6 +15,7 @@ import {AuthService} from '../../../shared/service/auth.service';
 })
 export class ChatComponent implements OnInit {
 
+<<<<<<< HEAD
   constructor(private snackBar: MatSnackBar,
               private auth: AuthService
               ) {
@@ -21,6 +26,23 @@ export class ChatComponent implements OnInit {
     this.auth.getUser().subscribe(res => {
       console.log(res);
     });
+=======
+  public message: string = '';
+
+  constructor(private webSocket: WebsocketService) {}
+
+  ngOnInit(): void {
+    this.webSocket.connect();
+  }
+
+  public sendMessage() {
+    this.webSocket.socketRef.send(JSON.stringify({
+      'command': 'new_message',
+      'message': this.message,
+      'from': 'firstep'
+    }));
+    this.message = '';
+>>>>>>> Angular-Django-Chat
   }
 
   public init(appId: string, apiKey?  : string) {
