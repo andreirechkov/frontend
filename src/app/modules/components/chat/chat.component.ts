@@ -13,7 +13,7 @@ export class ChatComponent implements OnInit {
   constructor(private webSocket: WebsocketService) {}
 
   ngOnInit(): void {
-    //this.webSocket.connect();
+    this.webSocket.connect();
   }
 
   public sendMessage() {
