@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 export class WebsocketService {
 
   public socketRef: WebSocket;
-  public containerMessage:any = [];
 
   constructor() {
     this.socketRef = null;

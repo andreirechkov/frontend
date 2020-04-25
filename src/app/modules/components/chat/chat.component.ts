@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { WebsocketService } from '../../../shared/service/websocket.service';
+import { AuthService } from '../../../shared/service/auth.service';
+import { User } from '../../../shared/interface/user';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -9,10 +13,19 @@ import { WebsocketService } from '../../../shared/service/websocket.service';
 export class ChatComponent implements OnInit {
 
   public message: string = '';
+  public user: User;
 
-  constructor(private webSocket: WebsocketService) {}
+  public destroy$ = new Subject();
+
+  constructor(private webSocket: WebsocketService,
+              private api: AuthService) {}
 
   ngOnInit(): void {
+    this.api.getUser()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res: User) => {
+      this.user = res;
+    });
     this.webSocket.connect();
   }
 
@@ -20,7 +33,7 @@ export class ChatComponent implements OnInit {
     this.webSocket.socketRef.send(JSON.stringify({
       'command': 'new_message',
       'message': this.message,
-      'from': 'firstep'
+      'from': this.user.username
     }));
     this.message = '';
   }
