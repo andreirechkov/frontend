@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {faComments, faHome, faMapSigns, faQuestion, faUsers} from '@fortawesome/free-solid-svg-icons';
+import {faCog, faComments, faHome, faMapSigns, faQuestion, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {animate, group, state, style, transition, trigger} from '@angular/animations';
 import {DOCUMENT} from '@angular/common';
 
@@ -97,17 +97,17 @@ export class SidenavComponent implements OnInit {
     {
       name: 'Персонал',
       icon: faUsers,
-      link: '/home'
+      link: '/person'
     },
     {
       name: 'Карты',
       icon: faMapSigns,
-      link: '/home'
+      link: '/maps'
     },
     {
-      name: '????',
-      icon: faQuestion,
-      link: '/home'
+      name: 'Настройки',
+      icon: faCog,
+      link: '/setting'
     }
   ];
 

@@ -5,6 +5,9 @@ import { HomeComponent, CutawayComponent } from '../app/core/core-index';
 import { AuthLayoutComponent, SiteLayoutComponent } from '../app/shared/shared';
 
 import { AuthGuard } from './shared/guard/auth.guard';
+import { MapComponent } from './modules/components/map/map.component';
+import { PersonComponent } from './modules/components/person/person.component';
+import { SettingComponent } from './modules/components/setting/setting.component';
 
 const routes: Routes = [
   {
@@ -19,7 +22,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'chat-messages', component: ChatComponent}
+      { path: 'chat-messages', component: ChatComponent },
+      { path: 'person', component: PersonComponent },
+      { path: 'maps', component: MapComponent },
+      { path: 'setting', component: SettingComponent }
     ]
   }
 ];

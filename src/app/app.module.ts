@@ -19,6 +19,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {  FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HeaderComponent } from './core/components/header/header.component';
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { PersonComponent } from './modules/components/person/person.component';
+import { MapComponent } from './modules/components/map/map.component';
+import { SettingComponent } from './modules/components/setting/setting.component';
 
 
 
@@ -33,7 +36,10 @@ import { BsDropdownModule } from 'ngx-bootstrap';
     ChatComponent,
     AuthLayoutComponent,
     SiteLayoutComponent,
-    HeaderComponent
+    HeaderComponent,
+    PersonComponent,
+    MapComponent,
+    SettingComponent
   ],
     imports: [
         BrowserModule,
