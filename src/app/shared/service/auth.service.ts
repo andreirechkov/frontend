@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { User } from '../interface/user';
 import { tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
-const API_USERS = "/api/users/";
-const API_AUTH = "/api/auth/";
+const API_USERS = '/api/users/';
+const API_AUTH = '/api/auth/';
 
 @Injectable({
   providedIn: 'root'
