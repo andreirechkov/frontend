@@ -22,6 +22,7 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import { PersonComponent } from './modules/components/person/person.component';
 import { MapComponent } from './modules/components/map/map.component';
 import { SettingComponent } from './modules/components/setting/setting.component';
+import { ChatContentComponent } from './modules/components/ChatMessages/chat-content/chat-content.component';
 
 
 
@@ -39,7 +40,8 @@ import { SettingComponent } from './modules/components/setting/setting.component
     HeaderComponent,
     PersonComponent,
     MapComponent,
-    SettingComponent
+    SettingComponent,
+    ChatContentComponent
   ],
     imports: [
         BrowserModule,

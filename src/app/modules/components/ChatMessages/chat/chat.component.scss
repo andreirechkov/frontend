@@ -1,0 +1,86 @@
+.container-fluid {
+  display: flex;
+  padding: 0;
+  height: 100%;
+
+  .sidepanel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #060624;
+    padding: 0;
+
+    .header {
+      display: flex;
+      align-items: center;
+      fill: white;
+      .start-svg {
+        margin: 13px 10px 0 10px;
+      }
+      form {
+        width: 90%;
+      }
+      .finish-svg {
+        margin-left: 20px;
+        margin-right: -10px;
+      }
+    }
+
+    .data {
+      display: flex;
+      justify-content: space-between;
+      .btn-group {
+        button {
+          font-size: 15px;
+          color: white;
+        }
+      }
+    }
+
+    .people {
+      height: 100%;
+      ul {
+        list-style-type: none;
+        padding: 0;
+        .contact {
+          display: flex;
+          justify-content: space-between;
+          color: white;
+          padding: 10px;
+          .people-info {
+            display: flex;
+            .image {
+              margin-right: 20px;
+              img {
+                width: 45px;
+                border-radius: 50%;
+              }
+            }
+            .meta {
+              .name {
+                font-size: 18px;
+                margin: 0;
+              }
+              .preview {
+                margin-top: 5px;
+                font-size: 13px;
+              }
+            }
+          }
+          .time {
+            display: flex;
+            align-items: center;
+            span {
+              margin-bottom: 15px;
+              margin-right: 20px;
+            }
+          }
+          &:hover {
+            background-color: #202034;
+          }
+        }
+      }
+    }
+  }
+}
+

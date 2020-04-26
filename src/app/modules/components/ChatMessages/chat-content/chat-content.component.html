@@ -1,0 +1,30 @@
+<div class="content">
+  <div class="contact-profile">
+    <div class="image">
+        <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
+    </div>
+    <div class="meta">
+        <p class="name">{{userChannel?.name}}</p>
+    </div>
+  </div>
+  <div class="messages">
+    <ul id="chat-log" class="chat-log">
+      <li *ngFor="let message of messageContent" class="{{ message.author === this.user.username ? 'replies': 'sent' }}">
+        <div class="image">
+          <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+        </div>
+        <div class="text">
+         <p>{{ message.content }}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="message-input">
+    <div class="input-group p-2">
+      <input [(ngModel)]="message" type="text" class="form-control" placeholder="Enter message" aria-label="Recipient's username">
+      <div class="input-group-append">
+        <button (click)="sendMessage()" class="btn btn-primary" type="button">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
