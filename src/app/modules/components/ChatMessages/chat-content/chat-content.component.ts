@@ -1,11 +1,10 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {Subject, Subscription} from 'rxjs';
-import {WebsocketService} from '../../../../shared/service/websocket.service';
-import {AuthService} from '../../../../shared/service/auth.service';
-import {takeUntil} from 'rxjs/operators';
-import {Message, Messages} from '../../../../shared/interface/message';
-import {Channel} from '../../../../shared/interface/channel';
-import {User} from '../../../../shared/interface/user';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import { Subject, Subscription} from 'rxjs';
+import { WebsocketService} from '../../../../shared/service/websocket.service';
+import { AuthService } from '../../../../shared/service/auth.service';
+import { Message, ChannelMessage } from '../../../../shared/interface/message';
+import { Channel } from '../../../../shared/interface/channel';
+import { User } from '../../../../shared/interface/user';
 
 @Component({
   selector: 'app-chat-content',
@@ -38,12 +37,13 @@ export class ChatContentComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.Subscribe.forEach(subscribe => subscribe.unsubscribe());
+    this.messageContent = [];
     if (this.userChannel) {
       this.Subscribe.push(this.wsSubscription =
         this.wsService.createObservableSocket(`ws://localhost:8000/ws/chat/${this.userChannel.username}/`)
           .subscribe(
             ev => {
-              const data: Messages = JSON.parse(ev);
+              const data: ChannelMessage = JSON.parse(ev);
               if (data['command'] === 'messages') {
                 data.messages.forEach(element => {
                   this.messageContent.push(element);

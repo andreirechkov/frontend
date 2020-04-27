@@ -1,0 +1,43 @@
+.panel-default {
+  margin: 20px;
+  background-color: #fff;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+}
+.panel-heading {
+  color: #333;
+  background-color: #f5f5f5;
+  border-color: #ddd;
+  padding: 5px;
+  .panel-title {
+    margin: 10px;
+    font-size: 20px;
+    color: inherit;
+  }
+}
+.panel-body {
+  display: flex;
+  padding: 10px;
+  .profile__avatar {
+    img {
+      width: 150px;
+      border-radius: 50%;
+    }
+  }
+  .profile__header {
+    margin: 20px;
+  }
+}
+
+.contact {
+  margin-top: 20px;
+}
+
+.profile__contact-info-item {
+  margin-bottom: 30px;
+}
+.profile__contact-info-body {
+  overflow: hidden;
+  padding-left: 20px;
+  color: #999999;
+}

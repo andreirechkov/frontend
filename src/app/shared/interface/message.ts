@@ -5,7 +5,7 @@ export interface Message {
   timestamp: string
 }
 
-export interface Messages {
+export interface ChannelMessage {
   command: string,
   messages: Array<Message>
 }

@@ -14,6 +14,6 @@ export class AppComponent implements OnInit {
     const potentialToken = localStorage.getItem('auth-token');
     if (potentialToken !== null) {
       this.auth.setToken(potentialToken);
-    }
+    }     
   }
 }
