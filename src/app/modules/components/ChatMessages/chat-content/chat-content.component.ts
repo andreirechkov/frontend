@@ -20,6 +20,7 @@ export class ChatContentComponent implements OnInit, OnDestroy, OnChanges {
   public user: User;
   public messageContent: Array<Message> = [];
   public wsSubscription: Subscription;
+  private Subscribe: Subscription[] = [];
 
   private destroy$ = new Subject();
 
@@ -28,19 +29,18 @@ export class ChatContentComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(): void {
-    this.api.getUser()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res: User) => {
+    this.Subscribe.push(
+      this.api.getUser().subscribe((res: User) => {
         this.user = res;
-      });
+      })
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.closeSocket();
+    this.Subscribe.forEach(subscribe => subscribe.unsubscribe());
     if (this.userChannel) {
-      this.wsSubscription =
-        this.wsService.createObservableSocket(`ws://localhost:8000/ws/chat/test/`)
-          .pipe(takeUntil(this.destroy$))
+      this.Subscribe.push(this.wsSubscription =
+        this.wsService.createObservableSocket(`ws://localhost:8000/ws/chat/${this.userChannel.username}/`)
           .subscribe(
             ev => {
               const data: Messages = JSON.parse(ev);
@@ -55,18 +55,15 @@ export class ChatContentComponent implements OnInit, OnDestroy, OnChanges {
             },
             err => console.log('err'),
             () => console.log('The observable stream is complete')
-          );
+          )
+      );
     }
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.Subscribe.forEach(subscribe => subscribe.unsubscribe());
   }
 
-  public closeSocket(){
-    this.destroy$.complete();
-  }
   public sendMessage(): void {
     this.wsService.ws.send(JSON.stringify({
       'command': 'new_message',
