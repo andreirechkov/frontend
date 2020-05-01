@@ -1,14 +1,11 @@
 .general {
   height: 100%;
   .content {
-    display: flex;
     height: 100%;
-    .test {
-      display: flex;
-      flex-direction: column;
-      padding: 0 0;
-      background-size: cover;
-    }
+    display: flex;
+    flex-direction: column;
+    padding: 0 0;
+    background-size: cover;
   }
 }
 

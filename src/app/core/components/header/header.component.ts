@@ -1,6 +1,5 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from '../../../shared/service/auth.service';
-import { SidenavComponent } from '../sidenav/sidenav.component';
 import {DOCUMENT} from '@angular/common';
 
 @Component({
@@ -9,19 +8,33 @@ import {DOCUMENT} from '@angular/common';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  @Input() sideBar: SidenavComponent;
+  public sideNavList = [
+    {
+      name: 'Главная',
+      link: '/home',
+    },
+    {
+      name: 'Чат',
+      link: '/chat-messages'
+    },
+    {
+      name: 'Персонал',
+      link: '/person'
+    },
+    {
+      name: 'Карты',
+      link: '/maps'
+    },
+    {
+      name: 'Настройки',
+      link: '/setting'
+    }
+  ];
 
   constructor(
-    private auth: AuthService,
-    @Inject(DOCUMENT) public document: Document,
-  ) { }
+    private auth: AuthService ) { }
 
-  ngOnInit(): void {
-  }
-
-  public click(): void {
-    this.sideBar.toggle();
-  }
+  ngOnInit(): void {}
 
   public logout(): void {
     this.auth.logout();

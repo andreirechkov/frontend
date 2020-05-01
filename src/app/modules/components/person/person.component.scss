@@ -1,0 +1,104 @@
+.container-fluid {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  .header {
+    height: 300px;
+    width: 100%;
+    border: 1px solid black;
+  }
+
+  .table {
+    background-color: #060624;
+    color: white;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  }
+
+  #reviewStars-input input:checked ~ label, #reviewStars-input label, #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
+    background: url('http://positivecrash.com/wp-content/uploads/ico-s71a7fdede6.png') no-repeat;
+  }
+
+  #reviewStars-input {
+
+    /*fix floating problems*/
+    overflow: hidden;
+    *zoom: 1;
+    /*end of fix floating problems*/
+
+    position: relative;
+    float: left;
+  }
+
+  #reviewStars-input input {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+
+    width: 43px;
+    height: 40px;
+
+    position: absolute;
+    top: 0;
+    z-index: 0;
+  }
+
+  #reviewStars-input input:checked ~ label {
+    background-position: 0 -40px;
+    height: 40px;
+    width: 43px;
+  }
+
+  #reviewStars-input label {
+    background-position: 0 0;
+    height: 40px;
+    width: 43px;
+    float: right;
+    cursor: pointer;
+    margin-right: 10px;
+
+    position: relative;
+    z-index: 1;
+  }
+
+  .rating-area {
+    overflow: hidden;
+  }
+  .rating-area:not(:checked) > input {
+    display: none;
+  }
+  .rating-area:not(:checked) > label {
+    cursor: pointer;
+    font-size: 30px;
+    line-height: 50px;
+    color: lightgrey;
+    text-shadow: 1px 1px #bbb;
+  }
+  .rating-area:not(:checked) > label:before {
+    content: '★';
+  }
+  .rating-area > input:checked ~ label {
+    color: gold;
+    text-shadow: 1px 1px #c60;
+  }
+  .rating-area:not(:checked) > label:hover,
+  .rating-area:not(:checked) > label:hover ~ label {
+    color: gold;
+  }
+  .rating-area > input:checked + label:hover,
+  .rating-area > input:checked + label:hover ~ label,
+  .rating-area > input:checked ~ label:hover,
+  .rating-area > input:checked ~ label:hover ~ label,
+  .rating-area > label:hover ~ input:checked ~ label {
+    color: gold;
+    text-shadow: 1px 1px goldenrod;
+  }
+  .rate-area > label:active {
+    position: relative;
+  }
+}

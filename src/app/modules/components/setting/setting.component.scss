@@ -18,26 +18,34 @@
 .panel-body {
   display: flex;
   padding: 10px;
+  img {
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+  }
+
   .profile__avatar {
     img {
       width: 150px;
+      height: 150px;
       border-radius: 50%;
     }
   }
+
   .profile__header {
     margin: 20px;
   }
 }
 
-.contact {
-  margin-top: 20px;
-}
+  .contact {
+    margin-top: 20px;
+  }
 
-.profile__contact-info-item {
-  margin-bottom: 30px;
-}
-.profile__contact-info-body {
-  overflow: hidden;
-  padding-left: 20px;
-  color: #999999;
-}
+  .profile__contact-info-item {
+    margin-bottom: 30px;
+  }
+  .profile__contact-info-body {
+    overflow: hidden;
+    padding-left: 20px;
+    color: #999999;
+  }

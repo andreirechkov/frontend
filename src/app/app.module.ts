@@ -12,19 +12,18 @@ import { AppComponent } from './app.component';
 
 import { SignComponent, ChatComponent, RegistrationComponent } from '../app/modules/modules';
 
-import { HomeComponent, CutawayComponent, SidenavComponent } from '../app/core/core-index';
+import { HomeComponent, CutawayComponent } from '../app/core/core-index';
 
 import { AuthLayoutComponent, SiteLayoutComponent, TokenInterceptor } from '../app/shared/shared';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {  FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HeaderComponent } from './core/components/header/header.component';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { PersonComponent } from './modules/components/person/person.component';
 import { MapComponent } from './modules/components/map/map.component';
 import { SettingComponent } from './modules/components/setting/setting.component';
 import { ChatContentComponent } from './modules/components/ChatMessages/chat-content/chat-content.component';
-
-
+import {CarouselModule} from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [
@@ -33,7 +32,6 @@ import { ChatContentComponent } from './modules/components/ChatMessages/chat-con
     SignComponent,
     RegistrationComponent,
     HomeComponent,
-    SidenavComponent,
     ChatComponent,
     AuthLayoutComponent,
     SiteLayoutComponent,
@@ -43,18 +41,19 @@ import { ChatContentComponent } from './modules/components/ChatMessages/chat-con
     SettingComponent,
     ChatContentComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        FontAwesomeModule,
-        AppRoutingModule,
-        TabsModule.forRoot(),
-        ChartsModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        BsDropdownModule,
-        FormsModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FontAwesomeModule,
+    AppRoutingModule,
+    TabsModule.forRoot(),
+    ChartsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    BsDropdownModule,
+    FormsModule,
+    CarouselModule
+  ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     multi: true,
