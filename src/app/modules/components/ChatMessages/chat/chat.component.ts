@@ -42,6 +42,18 @@ export class ChatComponent implements OnInit {
     })
   }
 
+  public addContact(): void {
+    const newChannel = {
+      messages: [],
+      participants: ['firstep', 'Leonid'],
+
+    }
+    this.api.addContactChannel(newChannel).subscribe(res => {
+      console.log(res);
+    },
+      error => console.log(error));
+  }
+
   public chatChannel(user: object): void {
     this.userChannel = user;
   }

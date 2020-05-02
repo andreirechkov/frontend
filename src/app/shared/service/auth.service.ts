@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 const API_USERS = '/api/users/';
 const API_AUTH = '/api/auth/';
 const API_Channel = 'api/chat/?username=';
+const API_Channel_ADD = 'api/chat/create';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class AuthService {
 
   public getChannel(username: string): Observable<any> {
     return this.http.get<any>(API_Channel + `${username}`);
+  }
+
+  public addContactChannel(body): Observable<any> {
+    return this.http.post<any>(API_Channel_ADD, body);
   }
 
   public login(user: User): Observable<{token: string, id: string}> {
