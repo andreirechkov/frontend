@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 
 const API_USERS = '/api/users/';
 const API_AUTH = '/api/auth/';
+const API_Channel = 'api/chat/?username=';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class AuthService {
 
   constructor(private http: HttpClient,
               private  router: Router) { }
+
+  public getChannel(username: string): Observable<any> {
+    return this.http.get<any>(API_Channel + `${username}`);
+  }
 
   public login(user: User): Observable<{token: string, id: string}> {
     return this.http.post<{token: string, id: string}>(API_AUTH, user)

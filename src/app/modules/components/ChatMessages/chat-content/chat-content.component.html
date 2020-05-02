@@ -7,7 +7,7 @@
         <p class="name">{{userChannel?.name}}</p>
     </div>
   </div>
-  <div class="messages">
+  <div id="content-message" class="messages">
     <ul id="chat-log" class="chat-log">
       <li *ngFor="let message of messageContent" class="{{ message.author === this.user.username ? 'replies': 'sent' }}">
         <div class="image">

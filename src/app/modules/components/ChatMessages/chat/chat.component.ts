@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
-import { User } from '../../../../shared/interface/user';
 import { AuthService } from '../../../../shared/service/auth.service';
 import { Subject } from 'rxjs';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import {Router} from '@angular/router';
-import {Channel} from '../../../../shared/interface/channel';
+import { Router } from '@angular/router';
+import { Channel } from '../../../../shared/interface/channel';
+import {User} from '../../../../shared/interface/user';
 
 @Component({
   selector: 'app-chat',
@@ -16,22 +15,8 @@ export class ChatComponent implements OnInit {
 
   public star = faStar;
   public userChannel: object;
-  public contactItem: Array<Channel> = [
-    {
-      status: 'online',
-      name: 'Мария Выскребец',
-      username: 'test',
-      text: 'Hello everyone!',
-      time: '15:00'
-    },
-    {
-      status: 'busy',
-      name: 'Frank Lampard',
-      username: 'frank',
-      text: 'Hello, I am is coach Chelsea',
-      time: '21:00'
-    },
-  ];
+  public user: User;
+  public contactItem: Array<Channel> = [];
 
   private destroy$ = new Subject();
 
@@ -39,6 +24,22 @@ export class ChatComponent implements OnInit {
               private router: Router) {}
 
   ngOnInit(): void {
+    this.api.getUser().subscribe((res: User) => {
+      this.user = res;
+      this.api.getChannel(this.user.username).subscribe(res => {
+        res.forEach(channel => {
+          const test = {
+            id: channel.id,
+            status: 'online',
+            name: `test`,
+            username: 'test',
+            text: 'Hello everyone!',
+            time: '15:00'
+          }
+          this.contactItem.push(test);
+        })
+      })
+    })
   }
 
   public chatChannel(user: object): void {

@@ -8,14 +8,16 @@ export class WebsocketService {
 
   public ws: WebSocket;
 
-
-
-  public createObservableSocket(url: string): Observable<any> {
+  public createObservableSocket(url: string, username:string, chatId: string): Observable<any> {
     this.ws = new WebSocket(url);
     return new Observable(
       observer => {
         this.ws.onopen = (event) => {
-          this.ws.send(JSON.stringify({'command': 'fetch_messages' }));
+           this.ws.send(JSON.stringify({
+             'command': 'fetch_messages',
+             'username': username,
+             'chatId': chatId
+           }));
         }
         this.ws.onmessage = (event) =>
           observer.next(event.data);
