@@ -28,10 +28,7 @@ export class RegistrationComponent implements OnInit {
       password: ['', [Validators.required]],
       person: this.formBuilder.group({
         firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
-        email:    ['', [Validators.required]],
-        phone:    ['', [Validators.required]],
-        typeUser:  ['', [Validators.required]],
+        lastName: ['', [Validators.required]]
       })
     });
   }

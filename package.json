@@ -35,6 +35,7 @@
     "mdbootstrap": "^4.17.0",
     "moment": "^2.24.0",
     "ng2-charts": "^2.2.4",
+    "ng2-file-upload": "^1.4.0",
     "ngx-bootstrap": "^5.1.2",
     "roboto-fontface": "^0.10.0",
     "rxjs": "~6.5.5",

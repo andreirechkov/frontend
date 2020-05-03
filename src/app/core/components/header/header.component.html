@@ -4,6 +4,7 @@
   <nav class="my-2 my-md-0 mr-md-3">
     <a *ngFor="let item of sideNavList" class="p-2 text-dark" [routerLink]="item.link" [routerLinkActive]="['active']" >{{ item.name }}</a>
   </nav>
-  <img class="avatar" src="/assets/maria.jpg" alt="maria">
+  <img *ngIf="image" class="avatar" [src]="image" alt="maria">
+  <img *ngIf="!image" class="avatar" src="assets/avatar-3.png" alt="...">
   <a class="btn btn-outline-primary" (click)="logout()">Выйти</a>
 </div>

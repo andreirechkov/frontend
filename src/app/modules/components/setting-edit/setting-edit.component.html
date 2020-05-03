@@ -1,0 +1,97 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">
+    {{ user?.person?.firstName }}  {{ user?.person?.lastName }}
+  </h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="form"
+      class="form-signin card-reg"
+      (ngSubmit)="saveChange()">
+    <div class="input-date">
+      <div class="test">
+        <label for="image" class="sr-only"></label>
+        <p>Аватар:</p>
+        <input id="image"
+               type="file"
+               (change)="onFileChange($event.target.files)"
+               class="form-control"
+               placeholder="Введите Имя">
+      </div>
+      <div class="test">
+        <label for="firstName" class="sr-only"></label>
+        <p>Имя:</p>
+        <input id="firstName"
+               type="text"
+               class="form-control"
+               placeholder="Введите Имя"
+               formControlName="firstName">
+      </div>
+      <div class="test">
+        <label for="lastName" class="sr-only"></label>
+        <p>Фамилия:</p>
+        <input type="text"
+               id="lastName"
+               class="form-control"
+               placeholder="Введите Фамилию"
+               formControlName="lastName">
+      </div>
+      <div class="test">
+        <p>Город:</p>
+        <label for="city" class="sr-only"></label>
+        <input type="text"
+               id="city"
+               class="form-control"
+               placeholder="Введите город"
+               formControlName="city">
+      </div>
+      <div class="test">
+        <p>Район:</p>
+        <label for="area" class="sr-only"></label>
+        <input id="area"
+               type="text"
+               class="form-control"
+               placeholder="Введите район"
+               formControlName="area">
+      </div>
+      <div class="test">
+        <label for="email" class="sr-only"></label>
+        <p>Почта:</p>
+        <input type="text"
+               id="email"
+               class="form-control"
+               placeholder="Введите почту"
+               formControlName="email">
+      </div>
+      <div class="test">
+        <label for="phone" class="sr-only"></label>
+        <p>Телефон:</p>
+        <input type="text"
+               id="phone"
+               class="form-control"
+               placeholder="Введите телефон"
+               formControlName="phone">
+      </div>
+      <div class="test">
+        <label for="type" class="sr-only"></label>
+        <p>Роль:</p>
+        <input id="type"
+               type="text"
+               class="form-control"
+               placeholder="Введите роль"
+               formControlName="typeUser">
+      </div>
+      <div class="test">
+        <label for="content" class="sr-only"></label>
+        <p>О себе:</p>
+        <textarea autosize type="text" class="form-control" placeholder="Напишите о себе"
+                  id="content" formControlName="content" maxlength="400"></textarea>
+      </div>
+    </div>
+  <div class="modal-footer">
+    <div class="submit-button">
+      <input class="btn btn-primary btn-save" type="submit" value="Сохранить">
+    </div>
+  </div>
+</form>

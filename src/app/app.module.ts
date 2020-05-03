@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -23,7 +23,9 @@ import { PersonComponent } from './modules/components/person/person.component';
 import { MapComponent } from './modules/components/map/map.component';
 import { SettingComponent } from './modules/components/setting/setting.component';
 import { ChatContentComponent } from './modules/components/ChatMessages/chat-content/chat-content.component';
-import {CarouselModule} from 'angular-bootstrap-md';
+import { CarouselModule } from 'angular-bootstrap-md';
+import { SettingEditComponent } from './modules/components/setting-edit/setting-edit.component';
+import { ModalModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import {CarouselModule} from 'angular-bootstrap-md';
     PersonComponent,
     MapComponent,
     SettingComponent,
-    ChatContentComponent
+    ChatContentComponent,
+    SettingEditComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +50,7 @@ import {CarouselModule} from 'angular-bootstrap-md';
     FontAwesomeModule,
     AppRoutingModule,
     TabsModule.forRoot(),
+    ModalModule.forRoot(),
     ChartsModule,
     HttpClientModule,
     ReactiveFormsModule,

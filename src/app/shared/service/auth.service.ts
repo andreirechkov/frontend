@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import {Router} from '@angular/router';
 
 const API_USERS = '/api/users/';
+const API_Profile = '/api/profile/';
 const API_AUTH = '/api/auth/';
 const API_Channel = 'api/chat/?username=';
 const API_Channel_ADD = 'api/chat/create';
@@ -47,6 +48,20 @@ export class AuthService {
 
   public register(body): Observable<User> {
     return this.http.post<User>(API_USERS, body);
+  }
+  
+  public profile(body, image: any): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('image', image, image.name);
+    formData.append('firstName', body.firstName);
+    formData.append('lastName', body.lastName);
+    formData.append('email', body.email);
+    formData.append('phone', body.phone);
+    formData.append('typeUser', body.typeUser);
+    formData.append('city', body.city);
+    formData.append('area', body.area);
+    formData.append('content', body.content);
+    return this.http.put<User>(API_Profile + `${this.getUserId()}/`, formData);
   }
 
   public setToken(token: string, id?: string): void {

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from '../../../shared/service/auth.service';
-import {DOCUMENT} from '@angular/common';
+import { User } from '../../../shared/interface/user';
 
 @Component({
   selector: 'app-header',
@@ -30,14 +30,17 @@ export class HeaderComponent implements OnInit {
       link: '/setting'
     }
   ];
+  public image: string = '';
 
-  constructor(
-    private auth: AuthService ) { }
+  constructor(private auth: AuthService ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.auth.getUser().subscribe((user: User) => {
+      this.image = user?.person?.image;
+    });
+  }
 
   public logout(): void {
     this.auth.logout();
   }
-
 }

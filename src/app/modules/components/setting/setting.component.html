@@ -7,15 +7,20 @@
         </div>
         <div class="panel-body">
           <div class="profile__avatar">
-            <img src="/assets/maria.jpg" alt="...">
+            <img *ngIf="user?.person && user?.person.image" class="img-responsive avatar"
+                 [src]="user?.person.image"
+                 alt="User profile picture">
+            <img *ngIf="user?.person && !user?.person.image" class="img-responsive avatar"
+                 src="assets/avatar-3.png"
+                 alt="User profile picture">
           </div>
           <div class="profile__header">
-            <h4>Мария Выскребец <small>Администратор</small></h4>
+            <h4>{{ user?.person?.firstName }} {{ user?.person?.lastName }} <small>{{ user?.person?.typeUser }}</small></h4>
             <p class="text-muted">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non nostrum odio cum repellat veniam eligendi rem cumque magnam autem delectus qui.
+              {{ user?.person?.content }}
             </p>
             <a href=""> <img src="/assets/instagram.png" alt="..."></a>
-            <a href="https://vk.com/idm.vyskrebets"><img src="/assets/vk.png" alt="..."></a>
+            <a href=""><img src="/assets/vk.png" alt="..."></a>
             <a href=""><img src="/assets/facebook.png" alt="..."></a>
           </div>
         </div>
@@ -29,15 +34,15 @@
             <tbody>
             <tr>
               <th><strong>Город</strong></th>
-              <td>Ростов-на-Дону</td>
+              <td>{{ user?.person?.city }}</td>
             </tr>
             <tr>
               <th><strong>Район</strong></th>
-              <td>Чкаловский</td>
+              <td>{{ user?.person?.area }}</td>
             </tr>
             <tr>
               <th><strong>Роль</strong></th>
-              <td>Арендодатель</td>
+              <td>{{ user?.person?.typeUser }}</td>
             </tr>
             </tbody>
           </table>
@@ -56,7 +61,7 @@
             </tr>
             <tr>
               <th><strong>Дата регистрации</strong></th>
-              <td>01 Мая 2020</td>
+              <td>{{ user?.person?.created_at | date }}</td>
             </tr>
             <tr>
               <th><strong>Последнее посещение</strong></th>
@@ -74,7 +79,7 @@
            [style]="{'background-color': '#060624', 'color': 'white'}" data-toggle="modal" data-target="#profile__contact-form">
           Написать сообщение
         </a>
-        <a class="profile__contact-btn btn btn-lg btn-block btn-info"
+        <a (click)="edit()" class="profile__contact-btn btn btn-lg btn-block btn-info"
            [style]="{'background-color': '#060624', 'color': 'white'}" data-toggle="modal" data-target="#profile__contact-form">
           Редактирование
         </a>
@@ -88,7 +93,7 @@
           </div>
           <div class="profile__contact-info-body">
             <h5 class="profile__contact-info-heading">Рабочий номер</h5>
-            (000)987-65-43
+            {{ user?.person?.phone }}
           </div>
         </div>
         <div class="profile__contact-info-item">
@@ -97,7 +102,7 @@
           </div>
           <div class="profile__contact-info-body">
             <h5 class="profile__contact-info-heading">Личный номер</h5>
-            8-952-577-55-13
+            {{ user?.person?.phone }}
           </div>
         </div>
         <div class="profile__contact-info-item">
@@ -106,7 +111,7 @@
           </div>
           <div class="profile__contact-info-body">
             <h5 class="profile__contact-info-heading">Почта</h5>
-            <a href="mailto:admin@domain.com">admin@domain.com</a>
+            <a href="mailto:admin@domain.com">{{ user?.person?.email }}</a>
           </div>
         </div>
       </div>

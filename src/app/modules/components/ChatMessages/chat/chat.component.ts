@@ -48,9 +48,7 @@ export class ChatComponent implements OnInit {
       participants: ['firstep', 'Leonid'],
 
     }
-    this.api.addContactChannel(newChannel).subscribe(res => {
-      console.log(res);
-    },
+    this.api.addContactChannel(newChannel).subscribe(res => {},
       error => console.log(error));
   }
 
