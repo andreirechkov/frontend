@@ -1,0 +1,13 @@
+.test {
+  display: flex;
+  justify-content: center;
+  p {
+    width: 100px;
+    padding: 14px 0 0 10px;
+    font-size: 19px;
+  }
+  input, textarea {
+    margin: 10px;
+    width: 60%;
+  }
+}

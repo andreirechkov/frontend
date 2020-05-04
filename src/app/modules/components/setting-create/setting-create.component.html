@@ -1,0 +1,61 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">
+    {{ user?.person?.firstName }}  {{ user?.person?.lastName }}
+  </h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="form"
+      class="form-signin card-reg"
+      (ngSubmit)="saveChange()">
+  <div class="input-date">
+    <div class="test">
+      <label for="image" class="sr-only"></label>
+      <p>Аватар:</p>
+      <input id="image"
+             type="file"
+             (change)="onFileChange($event.target.files)"
+             class="form-control"
+             placeholder="Выберите фото">
+    </div>
+    <div class="test">
+      <label for="nameNews" class="sr-only"></label>
+      <p>Название:</p>
+      <input id="nameNews"
+             type="text"
+             class="form-control"
+             placeholder="Введите Имя"
+             formControlName="nameNews">
+    </div>
+    <div class="test">
+      <label for="coordinate" class="sr-only"></label>
+      <p>Район:</p>
+      <input id="coordinate"
+             type="text"
+             class="form-control"
+             placeholder="Введите Имя"
+             formControlName="coordinate">
+    </div>
+    <div class="test">
+      <label for="price" class="sr-only"></label>
+      <p>Цена:</p>
+      <input id="price"
+             type="text"
+             class="form-control"
+             placeholder="Введите Имя"
+             formControlName="price">
+    </div>
+    <div class="test">
+      <label for="content" class="sr-only"></label>
+      <p>Описание:</p>
+      <textarea autosize type="text" class="form-control" placeholder="Напишите об объявлении"
+                id="content" formControlName="content" maxlength="400"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="submit-button">
+      <input class="btn btn-primary btn-save" type="submit" value="Сохранить">
+    </div>
+  </div>
+</form>

@@ -1,58 +1,49 @@
 <div class="container-fluid">
-  <div class="header"></div>
-  <table class="table">
-    <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Имя</th>
-      <th scope="col">Дата регистрации</th>
-      <th scope="col">Роль</th>
-      <th scope="col">Кол-во публикаций</th>
-      <th scope="col">Рейтинг</th>
-      <th scope="col">Профиль</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Мария выскребец</td>
-      <td>01 Мая 2020</td>
-      <td>Предприниматель</td>
-      <td></td>
-      <td>
-        <div class="rating-area">
-          <input type="radio" id="star-5" name="rating" value="5">
-          <label for="star-5" title="Оценка «5»"></label>
-          <input type="radio" id="star-4" name="rating" value="4">
-          <label for="star-4" title="Оценка «4»"></label>
-          <input type="radio" id="star-3" name="rating" value="3">
-          <label for="star-3" title="Оценка «3»"></label>
-          <input type="radio" id="star-2" name="rating" value="2">
-          <label for="star-2" title="Оценка «2»"></label>
-          <input type="radio" id="star-1" name="rating" value="1">
-          <label for="star-1" title="Оценка «1»"></label>
+  <form>
+    <div>
+      <input class="form-control" type="text" placeholder="Search">
+    </div>
+  </form>
+  <div class="content">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th [style]="{'width': '10%'}" scope="col">Название</th>
+        <th [style]="{'width': '20%'}" scope="col">Фото</th>
+        <th [style]="{'width': '10%'}" scope="col">Цена</th>
+        <th [style]="{'width': '45%'}" scope="col">Информация</th>
+        <th [style]="{'width': '15%'}" scope="col">Дата публикации</th>
+  <!--      <th [style]="{'width': '20%'}" scope="col">Пользователь</th>-->
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let vacation of news; let i = index">
+        <th scope="row">{{ i + 1}}</th>
+        <td [style]="{'width': '10%'}">{{ vacation?.nameNews }}</td>
+        <td [style]="{'width': '20%'}"><a routerLink="/setting" [queryParams]="{'id': vacation?.user }"><img class="home-avatar" [src]="vacation?.images" alt="maria"></a></td>
+        <td [style]="{'width': '10%'}">{{ vacation?.price }}</td>
+        <td class="content"><p>{{ vacation?.content }}</p></td>
+        <td [style]="{'width': '15%'}">{{ vacation?.created_at | date }}</td>
+  <!--      <td [style]="{'width': '10%'}"><img class="avatar" src="/assets/maria.jpg" alt="maria"></td>-->
+      </tr>
+      </tbody>
+    </table>
+    <div class="header">
+      <a routerLink="/create" class="card">
+        <div class="photo">
+          <img src="/assets/team.jpg" alt="maria">
         </div>
-      </td>
-      <td><img class="avatar" src="/assets/maria.jpg" alt="maria"></td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Мария выскребец</td>
-      <td>01 Мая 2020</td>
-      <td>Предприниматель</td>
-      <td></td>
-      <td>star</td>
-      <td><img class="avatar" src="/assets/maria.jpg" alt="maria"></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Мария выскребец</td>
-      <td>01 Мая 2020</td>
-      <td>Предприниматель</td>
-      <td></td>
-      <td>star</td>
-      <td><img class="avatar" src="/assets/maria.jpg" alt="maria"></td>
-    </tr>
-    </tbody>
-  </table>
+        <h2 class="m-2">Арт Команда</h2>
+        <p>Подберите себе арт-команду по интересам</p>
+      </a>
+      <a routerLink="/create" class="card">
+        <div class="photo">
+          <img src="/assets/new.png" alt="maria">
+        </div>
+        <h2 class="m-2">Создать</h2>
+        <p>В любой момент вы можете создать публикацию вашей аренды, поиска работы</p>
+      </a>
+    </div>
+  </div>
 </div>

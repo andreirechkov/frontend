@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { User } from '../interface/user';
 import { tap } from 'rxjs/operators';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 const API_USERS = '/api/users/';
+const API_NEWS = '/api/news/';
 const API_Profile = '/api/profile/';
 const API_AUTH = '/api/auth/';
 const API_Channel = 'api/chat/?username=';
@@ -42,14 +43,33 @@ export class AuthService {
       )
   }
 
-  public getUser(): Observable<User> {
-    return this.http.get<User>(API_USERS + `${this.getUserId()}`);
+  public getUserAll(): Observable<Array<User>> {
+    return this.http.get<Array<User>>(API_USERS);
+  }
+
+  public getNewsAll(): Observable<Array<any>> {
+    return this.http.get<Array<any>>(API_NEWS);
+  }
+
+  public getUser(userId: any = this.getUserId()): Observable<User> {
+    return this.http.get<User>(API_USERS + `${userId}`);
   }
 
   public register(body): Observable<User> {
     return this.http.post<User>(API_USERS, body);
   }
-  
+
+  public news(body, image: any): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('images', image, image.name);
+    formData.append('user', body.user);
+    formData.append('nameNews', body.nameNews);
+    formData.append('content', body.content);
+    formData.append('coordinate', body.coordinate);
+    formData.append('price', body.price);
+    return this.http.post<User>(API_NEWS, formData);
+  }
+
   public profile(body, image: any): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('image', image, image.name);

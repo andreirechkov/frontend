@@ -8,6 +8,8 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { MapComponent } from './modules/components/map/map.component';
 import { PersonComponent } from './modules/components/person/person.component';
 import { SettingComponent } from './modules/components/setting/setting.component';
+import {CreateNewsComponent} from './modules/components/create-news/create-news.component';
+import {AllUserComponent} from './modules/components/all-user/all-user.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'users', component: AllUserComponent },
+      { path: 'create', component: CreateNewsComponent },
       { path: 'chat-messages', component: ChatComponent },
       { path: 'person', component: PersonComponent },
       { path: 'maps', component: MapComponent },

@@ -13,5 +13,6 @@ export interface User {
     city: string
     area: string
     content: string
+    created_at: string
   }
 }

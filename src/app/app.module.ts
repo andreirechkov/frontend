@@ -26,6 +26,10 @@ import { ChatContentComponent } from './modules/components/ChatMessages/chat-con
 import { CarouselModule } from 'angular-bootstrap-md';
 import { SettingEditComponent } from './modules/components/setting-edit/setting-edit.component';
 import { ModalModule } from 'ngx-bootstrap';
+import { CreateNewsComponent } from './modules/components/create-news/create-news.component';
+import { AllUserComponent } from './modules/components/all-user/all-user.component';
+import { SettingCreateComponent } from './modules/components/setting-create/setting-create.component';
+import {AgmCoreModule} from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -42,22 +46,31 @@ import { ModalModule } from 'ngx-bootstrap';
     MapComponent,
     SettingComponent,
     ChatContentComponent,
-    SettingEditComponent
+    SettingEditComponent,
+    CreateNewsComponent,
+    AllUserComponent,
+    SettingCreateComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FontAwesomeModule,
-    AppRoutingModule,
-    TabsModule.forRoot(),
-    ModalModule.forRoot(),
-    ChartsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    BsDropdownModule,
-    FormsModule,
-    CarouselModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        FontAwesomeModule,
+        AppRoutingModule,
+        TabsModule.forRoot(),
+        ModalModule.forRoot(),
+        AgmCoreModule.forRoot({
+          // please get your own API key here:
+          // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en
+          apiKey: 'AIzaSyBxqRMxNtjl9IpFecQviqXuBYLE0yTCj28'
+        }),
+        ChartsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        BsDropdownModule,
+        FormsModule,
+        CarouselModule,
+        AgmCoreModule
+    ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     multi: true,

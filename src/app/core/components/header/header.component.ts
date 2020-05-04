@@ -14,20 +14,20 @@ export class HeaderComponent implements OnInit {
       link: '/home',
     },
     {
+      name: 'Пользователи',
+      link: '/users',
+    },
+    {
       name: 'Чат',
       link: '/chat-messages'
     },
     {
-      name: 'Персонал',
+      name: 'Объявления',
       link: '/person'
     },
     {
       name: 'Карты',
       link: '/maps'
-    },
-    {
-      name: 'Настройки',
-      link: '/setting'
     }
   ];
   public image: string = '';
