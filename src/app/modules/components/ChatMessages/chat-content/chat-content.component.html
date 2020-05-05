@@ -1,7 +1,7 @@
 <div class="content">
   <div class="contact-profile">
     <div class="image">
-        <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
+        <img [src]="this.userChannel?.image" alt="" />
     </div>
     <div class="meta">
         <p class="name">{{userChannel?.name}}</p>
@@ -11,7 +11,7 @@
     <ul id="chat-log" class="chat-log">
       <li *ngFor="let message of messageContent" class="{{ message.author === this.user.username ? 'replies': 'sent' }}">
         <div class="image">
-          <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+          <img [src]=" message.author === this.user.username ? this.user.person.image: this.userChannel.image" alt="" />
         </div>
         <div class="text">
          <p>{{ message.content }}</p>

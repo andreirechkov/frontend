@@ -33,7 +33,7 @@
         <li *ngFor="let contact of contactItem" class="contact" (click)="chatChannel(contact)">
           <div class="people-info">
             <div class="image">
-              <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
+              <img [src]="contact.image" alt="" />
             </div>
             <div class="meta">
               <p class="name">{{ contact.name }}</p>

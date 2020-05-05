@@ -15,7 +15,8 @@ export class ChatComponent implements OnInit {
 
   public star = faStar;
   public userChannel: object;
-  public user: User;
+  public user: any;
+  public userAll = []
   public contactItem: Array<Channel> = [];
 
   private destroy$ = new Subject();
@@ -26,33 +27,55 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.api.getUser().subscribe((res: User) => {
       this.user = res;
-      this.api.getChannel(this.user.username).subscribe(res => {
-        res.forEach(channel => {
-          const test = {
-            id: channel.id,
-            status: 'online',
-            name: `test`,
-            username: 'test',
-            text: 'Hello everyone!',
-            time: '15:00'
-          }
-          this.contactItem.push(test);
-        })
+      this.api.getUserAll().subscribe(allUser => {
+        this.userAll = allUser;
+        this.api.getChannel(this.user.username).subscribe(res => {
+          res.forEach(channel => {
+            if (channel.participants[0] !== this.user.username) {
+              this.userAll.forEach(item => {
+                if (item.username === channel.participants[0]) {
+                  const test = {
+                    id: channel.id,
+                    image: item.person.image,
+                    status: 'online',
+                    name: `${ item.person.firstName} ${ item.person.lastName}`,
+                    username: 'test',
+                    text: 'Hello everyone!',
+                    time: '15:00'
+                  }
+                  this.contactItem.push(test);
+                }
+              })
+            } else if (channel.participants[1] !== this.user.username) {
+              this.userAll.forEach(item => {
+                if (item.username === channel.participants[1]) {
+                  const test = {
+                    id: channel.id,
+                    image: item.person.image,
+                    status: 'online',
+                    name: `${item.person.firstName} ${item.person.lastName}`,
+                    username: 'test',
+                    text: 'Hello everyone!',
+                    time: '15:00'
+                  }
+                  this.contactItem.push(test);
+                }
+              })
+            }
+          })
+      })
       })
     })
   }
 
   public addContact(): void {
-    const newChannel = {
-      messages: [],
-      participants: ['firstep', 'Leonid'],
-
-    }
-    this.api.addContactChannel(newChannel).subscribe(res => {},
+    // const newChannel =
+    this.api.addContactChannel().subscribe(res => {},
       error => console.log(error));
   }
 
   public chatChannel(user: object): void {
     this.userChannel = user;
+
   }
 }
