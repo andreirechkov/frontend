@@ -1,17 +1,21 @@
-<div class="content">
+<div *ngIf="!userChannel" class="content">
+  Test
+</div>
+<div *ngIf="userChannel" class="content">
   <div class="contact-profile">
     <div class="image">
-        <img [src]="this.userChannel?.image" alt="" />
+        <img *ngIf="this.userChannel.image" [src]="this.userChannel?.image" alt="" />
+        <img *ngIf="!this.userChannel.image" src="assets/avatar-2.png" alt="" />
     </div>
     <div class="meta">
-        <p class="name">{{userChannel?.name}}</p>
+        <p class="name">{{ userChannel?.name }}</p>
     </div>
   </div>
   <div id="content-message" class="messages">
     <ul id="chat-log" class="chat-log">
       <li *ngFor="let message of messageContent" class="{{ message.author === this.user.username ? 'replies': 'sent' }}">
         <div class="image">
-          <img [src]=" message.author === this.user.username ? this.user.person.image: this.userChannel.image" alt="" />
+          <img [src]="message.author === this.user.username ? this.user.person.image: this.userChannel.image" alt="" />
         </div>
         <div class="text">
          <p>{{ message.content }}</p>

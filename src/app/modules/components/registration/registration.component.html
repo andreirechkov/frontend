@@ -42,6 +42,16 @@
                  formControlName="lastName"
                  [ngClass]="{'has-error': hasError('lastName')}">
         </div>
+        <div>
+          <label for="typeUser" class="sr-only">Last name</label>
+          <select id="typeUser" class="form-control" formControlName="typeUser">
+            <option value="" disabled selected>Выберите роль</option>
+            <option>Предприниматель</option>
+            <option>Арендодатель</option>
+            <option>Соискатель</option>
+            <option>Арт-команда</option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="submit-button text-center mt-1">

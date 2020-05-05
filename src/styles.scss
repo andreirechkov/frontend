@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
 @import 'styles/comet-chat-theme.scss';
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 body {
   font-family: "Roboto", sans-serif;

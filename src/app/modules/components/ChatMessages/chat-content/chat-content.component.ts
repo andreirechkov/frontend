@@ -61,8 +61,10 @@ export class ChatContentComponent implements OnInit, OnDestroy, OnChanges, After
   }
 
   ngAfterViewChecked(): void {
-    this.container = document.getElementById("content-message");
-    this.container.scrollTop = this.container.scrollHeight;
+    if (this.userChannel) {
+      this.container = document.getElementById("content-message");
+      this.container.scrollTop = this.container.scrollHeight;
+    }
   }
 
   ngOnDestroy(): void {

@@ -28,7 +28,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       password: ['', [Validators.required]],
       person: this.formBuilder.group({
         firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]]
+        lastName: ['', [Validators.required]],
+        typeUser: ['', [Validators.required]]
       })
     });
   }
@@ -45,11 +46,15 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     const user = Object.assign({}, this.form.value);
     this.api.register(user)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.router.navigate(['login'], {
+      .subscribe((res) => {
+        this.api.registerContact(`${res.id}`)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe();
+        this.router.navigate(['login'], {
         queryParams: {
           registered: true
-        }
-      }));
+        }})
+      });
   }
 
   ngOnDestroy(): void {

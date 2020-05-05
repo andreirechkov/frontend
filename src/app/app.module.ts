@@ -30,6 +30,9 @@ import { CreateNewsComponent } from './modules/components/create-news/create-new
 import { AllUserComponent } from './modules/components/all-user/all-user.component';
 import { SettingCreateComponent } from './modules/components/setting-create/setting-create.component';
 import {AgmCoreModule} from '@agm/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -59,9 +62,9 @@ import {AgmCoreModule} from '@agm/core';
         TabsModule.forRoot(),
         ModalModule.forRoot(),
         AgmCoreModule.forRoot({
-          // please get your own API key here:
-          // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en
-          apiKey: 'AIzaSyBxqRMxNtjl9IpFecQviqXuBYLE0yTCj28'
+            // please get your own API key here:
+            // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en
+            apiKey: 'AIzaSyBxqRMxNtjl9IpFecQviqXuBYLE0yTCj28'
         }),
         ChartsModule,
         HttpClientModule,
@@ -69,7 +72,10 @@ import {AgmCoreModule} from '@agm/core';
         BsDropdownModule,
         FormsModule,
         CarouselModule,
-        AgmCoreModule
+        AgmCoreModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        NgSelectModule
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

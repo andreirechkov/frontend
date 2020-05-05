@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 const API_USERS = '/api/users/';
+const API_CONTACT = '/api/contact/';
 const API_NEWS = '/api/news/';
 const API_Profile = '/api/profile/';
 const API_AUTH = '/api/auth/';
@@ -34,11 +35,8 @@ export class AuthService {
       'Authorization': 'Token 6100526eb846ac97b5190ffb45f3e7401926a0f5'
     })
   };
-  public addContactChannel(): Observable<any> {
-    return this.http.post<any>(API_Channel_ADD, {
-      messages: [],
-      participants: ['maria', 'firstep'],
-    }, this.httpOptions);
+  public addContactChannel(body): Observable<any> {
+    return this.http.post<any>(API_Channel_ADD, body, this.httpOptions);
   }
 
   public login(user: User): Observable<{token: string, id: string}> {
@@ -68,6 +66,12 @@ export class AuthService {
     return this.http.post<User>(API_USERS, body);
   }
 
+  public registerContact(body): Observable<User> {
+    return this.http.post<User>(API_CONTACT, {
+      user: body
+    });
+  }
+
   public news(body, image: any): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('images', image, image.name);
@@ -81,7 +85,7 @@ export class AuthService {
 
   public profile(body, image: any): Observable<any> {
     const formData: FormData = new FormData();
-    formData.append('image', image, image.name);
+    formData.append('image', image);
     formData.append('firstName', body.firstName);
     formData.append('lastName', body.lastName);
     formData.append('email', body.email);
