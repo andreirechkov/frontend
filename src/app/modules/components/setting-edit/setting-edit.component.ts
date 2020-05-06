@@ -55,7 +55,10 @@ export class SettingEditComponent implements OnInit, OnDestroy {
     const user = Object.assign({}, this.form.value);
     this.api.profile(user, this.fileToUpload)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(res => this.onSettingEdit.emit(res),
+      .subscribe(res => {
+        console.log(res);
+        this.onSettingEdit.emit(res)
+        },
         error => console.log(error));
     this.bsModalRef.hide();
   }

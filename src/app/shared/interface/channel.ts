@@ -1,5 +1,6 @@
 export interface Channel {
   id: any,
+  channelId: any,
   image?: string
   status: string,
   name: string,

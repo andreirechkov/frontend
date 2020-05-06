@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-registration',
@@ -15,6 +16,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public destroy$ = new Subject();
   public respErrors;
+  public errors: string[] = null;
 
   constructor(
     private api: AuthService,
@@ -54,6 +56,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         queryParams: {
           registered: true
         }})
+      },(err: HttpErrorResponse) => {
+        if (err.error && err.error.base && err.error.base.length > 0) {
+          this.errors = err.error.base;
+        } else {
+          this.errors = ['Unknown error'];
+        }
       });
   }
 

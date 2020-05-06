@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { User } from '../interface/user';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import {Channel} from '../interface/channel';
 
 const API_USERS = '/api/users/';
 const API_CONTACT = '/api/contact/';
@@ -21,6 +22,7 @@ export class AuthService {
 
   private token: string = null;
   private userId: string = null;
+  private username: string = null;
 
   constructor(private http: HttpClient,
               private  router: Router) { }
@@ -39,13 +41,18 @@ export class AuthService {
     return this.http.post<any>(API_Channel_ADD, body, this.httpOptions);
   }
 
-  public login(user: User): Observable<{token: string, id: string}> {
-    return this.http.post<{token: string, id: string}>(API_AUTH, user)
+  public getChannelUsername(username: string): Observable<any> {
+    return this.http.get<any>(`api/chat/?username=${username}`);
+  }
+
+  public login(user: User): Observable<{token: string, id: string, username: string}> {
+    return this.http.post<{token: string, id: string, username: string}>(API_AUTH, user)
       .pipe(
         tap(res => {
           localStorage.setItem('auth-token', res.token);
           localStorage.setItem('user-id', res.id);
-          this.setToken(res.token, res.id);
+          localStorage.setItem('username', res.username);
+          this.setToken(res.token, res.id, res.username);
         })
       )
   }
@@ -85,7 +92,9 @@ export class AuthService {
 
   public profile(body, image: any): Observable<any> {
     const formData: FormData = new FormData();
-    formData.append('image', image);
+    if (image) {
+      formData.append('image', image);
+    }
     formData.append('firstName', body.firstName);
     formData.append('lastName', body.lastName);
     formData.append('email', body.email);
@@ -97,9 +106,10 @@ export class AuthService {
     return this.http.put<User>(API_Profile + `${this.getUserId()}/`, formData);
   }
 
-  public setToken(token: string, id?: string): void {
+  public setToken(token: string, id?: string, username?:string): void {
     this.token = token;
     this.userId = id;
+    this.username = username;
   }
 
   public getToken(): string {
@@ -108,6 +118,10 @@ export class AuthService {
 
   public getUserId(): string {
     return localStorage.getItem('user-id');
+  }
+
+  public getUserName(): string {
+    return localStorage.getItem('username');
   }
 
   public isAuthenticated(): boolean {

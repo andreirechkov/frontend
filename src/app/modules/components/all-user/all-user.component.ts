@@ -11,6 +11,7 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class AllUserComponent implements OnInit, OnDestroy {
   public user: Array<User>
+  public defaultImage: any = "../assets/avatar-3.png";
 
   private destroy$ = new Subject();
   constructor(private api: AuthService) { }

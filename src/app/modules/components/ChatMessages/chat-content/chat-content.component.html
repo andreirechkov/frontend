@@ -1,11 +1,9 @@
 <div *ngIf="!userChannel" class="content">
-  Test
 </div>
 <div *ngIf="userChannel" class="content">
   <div class="contact-profile">
     <div class="image">
-        <img *ngIf="this.userChannel.image" [src]="this.userChannel?.image" alt="" />
-        <img *ngIf="!this.userChannel.image" src="assets/avatar-2.png" alt="" />
+        <img [src]="this.userChannel.image || defaultImage" alt="" />
     </div>
     <div class="meta">
         <p class="name">{{ userChannel?.name }}</p>
@@ -13,9 +11,9 @@
   </div>
   <div id="content-message" class="messages">
     <ul id="chat-log" class="chat-log">
-      <li *ngFor="let message of messageContent" class="{{ message.author === this.user.username ? 'replies': 'sent' }}">
+      <li *ngFor="let message of messageContent" class="{{ message.author === userChannel.username ? 'sent' : 'replies' }}">
         <div class="image">
-          <img [src]="message.author === this.user.username ? this.user.person.image: this.userChannel.image" alt="" />
+          <img [src]="message.author === userChannel.username ? this.userChannel.image: user.person.image" alt="" />
         </div>
         <div class="text">
          <p>{{ message.content }}</p>
@@ -23,12 +21,12 @@
       </li>
     </ul>
   </div>
-  <div class="message-input">
+  <form (submit)="sendMessage(message)" class="message-input">
     <div class="input-group p-2">
-      <input [(ngModel)]="message" type="text" class="form-control" placeholder="Enter message" aria-label="Recipient's username">
+      <input [(ngModel)]="message" name="text" type="text" class="form-control" placeholder="Enter message" aria-label="Recipient's username">
       <div class="input-group-append">
-        <button (click)="sendMessage()" class="btn btn-primary" type="button">Send</button>
+        <button class="btn btn-primary" type="submit">Send</button>
       </div>
     </div>
-  </div>
+  </form>
 </div>

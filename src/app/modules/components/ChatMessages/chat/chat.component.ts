@@ -1,12 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../../../shared/service/auth.service';
-import { Subject } from 'rxjs';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { forkJoin, Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { Channel } from '../../../../shared/interface/channel';
-import { User } from '../../../../shared/interface/user';
-import { takeUntil } from 'rxjs/operators';
-import {element} from 'protractor';
+import { takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-chat',
@@ -15,12 +11,11 @@ import {element} from 'protractor';
 })
 export class ChatComponent implements OnInit, OnDestroy {
 
-  public star = faStar;
-  public userChannel: object;
+  public netImage: any = "../assets/avatar-3.png";
+  public userChannel: any;
   public user: any;
-  public userAll = [];
   public dropMenu = [];
-  public contactItem: Array<Channel> = [];
+  public contactItem = [];
 
   private destroy$ = new Subject();
   public selected: any;
@@ -29,69 +24,31 @@ export class ChatComponent implements OnInit, OnDestroy {
               private router: Router) {}
 
   ngOnInit(): void {
-    this.api.getUser()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res: User) => {
-      this.user = res;
-      this.api.getUserAll()
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(allUser => {
-        this.userAll = allUser;
-        this.api.getChannel(this.user.username)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe(res => {
-          res.forEach(channel => {
-            if (channel.participants[0] !== this.user.username) {
-              this.userAll.forEach(item => {
-                if (item.username === channel.participants[0]) {
-                  const test = {
-                    id: channel.id,
-                    image: item.person.image,
-                    status: 'online',
-                    name: `${ item.person.firstName} ${ item.person.lastName}`,
-                    username: 'test',
-                    text: 'Hello everyone!',
-                    time: '15:00'
-                  }
-                  this.contactItem.push(test);
-                }
-              })
-            } else if (channel.participants[1] !== this.user.username) {
-              this.userAll.forEach(item => {
-                if (item.username === channel.participants[1]) {
-                  const test = {
-                    id: channel.id,
-                    image: item.person.image,
-                    status: 'online',
-                    name: `${item.person.firstName} ${item.person.lastName}`,
-                    username: 'test',
-                    text: 'Hello everyone!',
-                    time: '15:00'
-                  }
-                  this.contactItem.push(test);
-                }
-              })
-            }
-          })
+    forkJoin(this.api.getChannel(this.api.getUserName()),
+            this.api.getUserAll().pipe(takeUntil(this.destroy$))
+    ).pipe(takeUntil(this.destroy$))
+      .subscribe(([participants, userAll]) => {
+        participants.forEach((participant, index) => {
+          const array = participant.participants.filter(player => player !== this.api.getUserName());
+          this.dropMenu.push({id: index + 1, username: array[0], channelId: participant.id, messages: participant.messages});
         })
-      })
-    })
+        this.contactItem = userAll.filter(player => player.username !== this.api.getUserName());
+        userAll.filter(user => this.dropMenu.some(participant => {
+          if (user.username === participant.username) {
+            participant['name'] = `${user.person.firstName} ${user.person.lastName}`
+            if (user.person.image) {
+              participant['image'] = user.person.image;
+            } else {
+              participant['image'] = this.netImage;
+            }
+          }
+        }))
+    });
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  public addContact(addUser: any): void {
-    const body = {
-      messages: [],
-      participants: [this.user.username, addUser[0].username]
-    }
-    this.api.addContactChannel(body)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(res => {},
-      error => console.log(error));
   }
 
   public chatChannel(user: object): void {

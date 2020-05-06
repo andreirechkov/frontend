@@ -3,35 +3,45 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
+  background-color: #dce4ec;
 
-  .contact-profile{
-      display: flex;
-      margin: 10px;
-      .image {
-        margin-right: 20px;
-        img {
-          width: 45px;
-          height: 45px;
-          border-radius: 50%;
-        }
+  .contact-profile {
+    display: flex;
+    background-color: white;
+    margin: 0;
+    padding: 5px;
+
+    .image {
+      margin-right: 20px;
+
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
       }
-      .meta {
-        .name {
-          font-size: 18px;
-          margin-top: 5px;
-        }
+    }
+
+    .meta {
+      .name {
+        font-size: 18px;
+        margin-top: 5px;
       }
+    }
   }
+
   .messages {
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 780px;
+
     .chat-log {
       list-style-type: none;
       padding: 0 10px;
       margin: 0;
+
       .sent {
         display: flex;
         justify-content: flex-start;
+
         .image {
           img {
             width: 45px;
@@ -39,7 +49,9 @@
             border-radius: 50%;
           }
         }
+
         p {
+          word-break: break-all;
           width: 250px;
           margin-left: 10px;
           margin-top: 10px;
@@ -49,11 +61,19 @@
           border-radius: 20px;
         }
       }
+
       .replies {
         display: flex;
         justify-content: flex-end;
-        :nth-child(1) { order: 2; }
-        :nth-child(2) { order: 1; }
+
+        :nth-child(1) {
+          order: 2;
+        }
+
+        :nth-child(2) {
+          order: 1;
+        }
+
         .image {
           img {
             width: 45px;
@@ -61,8 +81,10 @@
             border-radius: 50%;
           }
         }
+
         .text {
           p {
+            word-break: break-all;
             width: 250px;
             margin-right: 10px;
             margin-top: 10px;
@@ -75,7 +97,21 @@
       }
     }
   }
+
   .message-input {
     margin-top: auto;
+  }
+
+  .messages::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .messages::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .messages::-webkit-scrollbar-thumb {
+    background-color: #060624;
+    outline: 1px solid slategrey;
   }
 }

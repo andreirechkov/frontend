@@ -7,19 +7,19 @@
         <rect y="40" width="40" height="5"></rect>
       </svg>
       <div class="test">
-        <ng-select [items]="userAll"
+        <ng-select [items]="contactItem"
                    bindLabel="username"
-                   placeholder="Select item"
+                   placeholder="Выбере пользователя"
                    appendTo="body"
                    multiple="true"
                    [(ngModel)]="selected">
         </ng-select>
       </div>
-      <button (click)="addContact(this.selected)" class="btn btn-primary button-test" type="button">Add</button>
+      <div [style]="{'width': '70px'}"></div>
     </div>
     <div class="people">
       <ul>
-        <li *ngFor="let contact of contactItem" class="contact" (click)="chatChannel(contact)">
+        <li *ngFor="let contact of dropMenu" class="contact" (click)="chatChannel(contact)">
           <div class="people-info">
             <div class="image">
               <img [src]="contact.image" alt="" />
@@ -29,15 +29,9 @@
               <p class="preview">{{ contact.text }}</p>
             </div>
           </div>
-          <div class="time">
-            <span class="icon-text">
-            <fa-icon slot="start" [icon]="star"></fa-icon>
-            </span>
-            <p>{{ contact.time }}</p>
-          </div>
         </li>
       </ul>
     </div>
   </div>
-  <app-chat-content class="col-8 p-0" [user]="user" [userChannel]="userChannel"></app-chat-content>
+  <app-chat-content class="col-8 p-0" [userChannel]="userChannel"></app-chat-content>
 </div>

@@ -7,12 +7,7 @@
         </div>
         <div class="panel-body">
           <div class="profile__avatar">
-            <img *ngIf="user?.person && user?.person.image" class="img-responsive avatar"
-                 [src]="user?.person.image"
-                 alt="User profile picture">
-            <img *ngIf="user?.person && !user?.person.image" class="img-responsive avatar"
-                 src="assets/avatar-3.png"
-                 alt="User profile picture">
+            <img class="img-responsive avatar" [src]="user?.person.image || defaultImage" alt="User profile picture">
           </div>
           <div class="profile__header">
             <h4>{{ user?.person?.firstName }} {{ user?.person?.lastName }} <small>{{ user?.person?.typeUser }}</small></h4>
@@ -75,17 +70,13 @@
     </div>
     <div class="col-xs-12 col-sm-3 contact">
       <p>
-        <a *ngIf="id" [routerLink]="'/chat-messages'" [routerLinkActive]="['active']" class="profile__contact-btn btn btn-lg btn-block btn-info"
+        <a *ngIf="id" (click)="addContact(this.user.username)" class="profile__contact-btn btn btn-lg btn-block btn-info"
            [style]="{'background-color': '#060624', 'color': 'white'}" data-toggle="modal" data-target="#profile__contact-form">
           Написать сообщение
         </a>
         <a *ngIf="!id" (click)="edit()" class="profile__contact-btn btn btn-lg btn-block btn-info"
-           [style]="{'background-color': '#060624', 'color': 'white'}" data-toggle="modal" data-target="#profile__contact-form">
+           [style]="{'background-color': '#060624', 'color': 'white'}">
           Редактирование
-        </a>
-        <a *ngIf="!id" (click)="create()" class="profile__contact-btn btn btn-lg btn-block btn-info"
-           [style]="{'background-color': '#060624', 'color': 'white'}" data-toggle="modal" data-target="#profile__contact-form">
-          Создать объявление
         </a>
       </p>
 

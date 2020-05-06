@@ -33,6 +33,7 @@ import {AgmCoreModule} from '@agm/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
         AgmCoreModule,
         MatFormFieldModule,
         MatSelectModule,
-        NgSelectModule
+        NgSelectModule,
+        MatProgressSpinnerModule
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -3,10 +3,9 @@ import { User } from '../../../shared/interface/user';
 import { AuthService } from '../../../shared/service/auth.service';
 import { BsModalService } from 'ngx-bootstrap';
 import { SettingEditComponent } from '../setting-edit/setting-edit.component';
-import { switchMap, takeUntil } from 'rxjs/operators';
-import {Subject, Subscription} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
-import {SettingCreateComponent} from '../setting-create/setting-create.component';
+import {map, switchMap, takeUntil} from 'rxjs/operators';
+import {forkJoin, Subject, Subscription} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-setting',
@@ -16,9 +15,11 @@ import {SettingCreateComponent} from '../setting-create/setting-create.component
 export class SettingComponent implements OnInit, OnDestroy {
   public user: User;
   public id: number;
+  public defaultImage: any = "../assets/avatar-3.png";
 
   constructor(private api: AuthService,
               private modalService: BsModalService,
+              private router: Router,
               private route: ActivatedRoute) {
     this.routeSubscription = route.params
       .pipe(takeUntil(this.destroy$))
@@ -50,6 +51,35 @@ export class SettingComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  public addContact(username: string): void {
+    const body = {
+      messages: [],
+      participants: [this.api.getUserName(), username]
+    }
+    this.api.getChannelUsername(username)
+    .pipe(
+      takeUntil(this.destroy$)
+    )
+    .subscribe((contact) => {
+      let exists = true;
+      contact.forEach(item => {
+        if (item.participants.includes(this.api.getUserName())) {
+          exists = false;
+        }
+      })
+      if (exists) {
+        this.api.addContactChannel(body).pipe(takeUntil(this.destroy$))
+          .subscribe(() => {},
+            error => console.log(error),
+            () => {
+            this.router.navigate(['/chat-messages'])
+          });
+      } else {
+        console.log('error');
+      }
+    });
+  }
+
   public edit(): void {
     const initialState = { user: this.user };
 
@@ -64,23 +94,6 @@ export class SettingComponent implements OnInit, OnDestroy {
       )
       .subscribe(x => {
         this.user = x;
-        modal.hide();
-      });
-  }
-
-  public create(): void {
-    const initialState = {user: this.user};
-
-    const modal = this.modalService
-      .show(SettingCreateComponent, {initialState});
-
-    modal.content
-      .onSettingCreate
-      .pipe(
-        takeUntil(this.destroy$),
-        switchMap(() => this.api.getUser())
-      )
-      .subscribe(() => {
         modal.hide();
       });
   }

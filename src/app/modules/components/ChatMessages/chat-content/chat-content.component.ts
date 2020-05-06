@@ -5,7 +5,6 @@ import { AuthService } from '../../../../shared/service/auth.service';
 import { Message, ChannelMessage } from '../../../../shared/interface/message';
 import { Channel } from '../../../../shared/interface/channel';
 import { User } from '../../../../shared/interface/user';
-import {takeUntil} from 'rxjs/operators';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
 @Component({
@@ -14,9 +13,9 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
   styleUrls: ['./chat-content.component.scss']
 })
 export class ChatContentComponent implements OnInit, OnDestroy, OnChanges, AfterViewChecked {
-
   @Input() userChannel: Channel;
-  @Input() user: User;
+  public defaultImage: any = "../assets/avatar-3.png";
+  public user: User;
   container: HTMLElement;
   public message: string = '';
   public messageContent: Array<Message> = [];
@@ -31,16 +30,18 @@ export class ChatContentComponent implements OnInit, OnDestroy, OnChanges, After
   }
 
   ngOnInit(): void {
+    this.api.getUser().subscribe(res => {
+      this.user = res;
+    })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.Subscribe.forEach(subscribe => subscribe.unsubscribe());
     this.messageContent = [];
     if (this.userChannel) {
-      console.log(`/ws/chat/${this.userChannel.id}/`);
       this.Subscribe.push(this.wsSubscription =
-        this.wsService.createObservableSocket(`ws://localhost:8000/ws/chat/${this.userChannel.id}/`,
-          this.user.username, this.userChannel.id)
+        this.wsService.createObservableSocket(`ws://localhost:8000/ws/chat/${this.userChannel.channelId}/`,
+          this.user.username, this.userChannel.channelId)
           .subscribe(
             ev => {
               const data: ChannelMessage = JSON.parse(ev);
@@ -71,14 +72,13 @@ export class ChatContentComponent implements OnInit, OnDestroy, OnChanges, After
     this.Subscribe.forEach(subscribe => subscribe.unsubscribe());
   }
 
-  public sendMessage(): void {
+  public sendMessage(message: string): void {
     this.wsService.ws.send(JSON.stringify({
       'command': 'new_message',
-      'message': this.message,
+      'message': message,
       'from': this.user.username,
-      'chatId': this.userChannel.id
+      'chatId': this.userChannel.channelId
     }));
     this.message = '';
   }
-
 }

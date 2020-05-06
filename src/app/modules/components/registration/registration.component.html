@@ -5,6 +5,12 @@
     <div class="logo-header">
       <span class="logo"></span>
       <span>Регистрация</span>
+      <div *ngIf="errors">
+        <ng-container *ngFor="let error of errors">
+          <span [style]="{'color': '#EC320A', 'font-size': '16px'}">Пользователь существует</span>
+        </ng-container>
+      </div>
+
     </div>
     <div class="input-date">
       <div>

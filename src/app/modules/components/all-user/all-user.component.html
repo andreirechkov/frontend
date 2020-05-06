@@ -2,7 +2,7 @@
   <div class="content">
     <a *ngFor="let person of user" routerLink="/setting" [queryParams]="{'id': person?.id }"  class="card">
       <div class="photo">
-        <img [src]="person?.person?.image" alt="{{ person?.person?.firstName }}">
+        <img [src]="person?.person.image || defaultImage" alt="{{ person?.person?.firstName }}">
       </div>
       <h2 class="m-2">{{ person?.person?.firstName }} {{ person?.person?.lastName }}</h2>
       <span>{{ person?.person?.typeUser }}</span>
