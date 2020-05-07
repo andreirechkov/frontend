@@ -12,6 +12,8 @@ import { takeUntil } from 'rxjs/operators';
 export class PersonComponent implements OnInit, OnDestroy {
   public news: Array<any> = [];
   public users: Array<User>;
+  public filterUsers: Array<User> = [];
+  public advertising: string = 'Аренда помещений';
 
   private destroy$ = new Subject();
 
@@ -21,12 +23,27 @@ export class PersonComponent implements OnInit, OnDestroy {
     this.api.getNewsAll()
       .pipe(takeUntil(this.destroy$))
       .subscribe(res => {
-      this.news = res;
+       this.news = res;
+       this.news.forEach(item => {
+         if (item.nameNews === 'Аренда помещения') {
+           this.filterUsers.push(item);
+         }
+       });
     });
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  public advertisingFilter(advertising: string): void {
+    this.advertising = advertising;
+    this.filterUsers = [];
+    this.news.forEach(item => {
+      if (item.nameNews === advertising) {
+        this.filterUsers.push(item);
+      }
+    })
   }
 }

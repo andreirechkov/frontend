@@ -1,33 +1,41 @@
 <div class="container-fluid">
-  <form>
-    <div>
-      <input class="form-control" type="text" placeholder="Search">
-    </div>
-  </form>
   <div class="content">
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th [style]="{'width': '10%'}" scope="col">Название</th>
-        <th [style]="{'width': '20%'}" scope="col">Фото</th>
-        <th [style]="{'width': '10%'}" scope="col">Цена</th>
-        <th [style]="{'width': '45%'}" scope="col">Информация</th>
-        <th [style]="{'width': '15%'}" scope="col">Дата публикации</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let vacation of news; let i = index">
-        <th scope="row">{{ i + 1}}</th>
-        <td [style]="{'width': '10%'}">{{ vacation?.nameNews }}</td>
-        <td [style]="{'width': '20%'}"><a routerLink="/setting" [queryParams]="{'id': vacation?.user }">
-          <img class="home-avatar" [src]="vacation?.images" alt="maria"></a></td>
-        <td [style]="{'width': '10%'}">{{ vacation?.price }}</td>
-        <td class="content"><p>{{ vacation?.content }}</p></td>
-        <td [style]="{'width': '15%'}">{{ vacation?.created_at | date }}</td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="test">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" (click)="advertisingFilter('Аренда помещения')">
+          <a class="nav-link" [ngClass]="advertising === 'Аренда помещения' ? 'active' : ''">Аренда помещений</a>
+        </li>
+        <li class="nav-item" (click)="advertisingFilter('Соискатель')">
+          <a class="nav-link" [ngClass]="advertising === 'Соискатель' ? 'active' : ''">Соискатели</a>
+        </li>
+        <li class="nav-item" (click)="advertisingFilter('Арт-команда')">
+          <a class="nav-link" [ngClass]="advertising === 'Арт-команда' ? 'active' : ''">Арт-команды</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th [style]="{'width': '20%'}" scope="col">Фото</th>
+            <th [style]="{'width': '15%'}" scope="col">Цена</th>
+            <th [style]="{'width': '45%'}" scope="col">Информация</th>
+            <th [style]="{'width': '20%'}" scope="col">Дата публикации</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let vacation of filterUsers; let i = index">
+            <th scope="row">{{ i + 1}}</th>
+            <td [style]="{'width': '20%'}"><a routerLink="/setting" [queryParams]="{'id': vacation?.user }">
+              <img class="home-avatar" [src]="vacation?.images" alt="maria"></a></td>
+            <td [style]="{'width': '15%'}">{{ vacation?.price }}</td>
+            <td class="content"><p>{{ vacation?.content }}</p></td>
+            <td [style]="{'width': '20%'}">{{ vacation?.created_at | date }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <div class="header">
       <a routerLink="/create" class="card">
         <div class="photo">
