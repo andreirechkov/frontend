@@ -1,11 +1,10 @@
-import {AfterViewChecked, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import { Subject, Subscription} from 'rxjs';
-import { WebsocketService} from '../../../../shared/service/websocket.service';
-import { AuthService } from '../../../../shared/service/auth.service';
-import { Message, ChannelMessage } from '../../../../shared/interface/message';
-import { Channel } from '../../../../shared/interface/channel';
-import { User } from '../../../../shared/interface/user';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { AfterViewChecked, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Subscription} from 'rxjs';
+import { WebsocketService} from '../../../shared/service/websocket.service';
+import { Message, ChannelMessage } from '../../../shared/interface/message';
+import { Channel } from '../../../shared/interface/channel';
+import { User } from '../../../shared/interface/user';
+import { ApiService } from '../../../shared/service/api.service';
 
 @Component({
   selector: 'app-chat-content',
@@ -16,17 +15,14 @@ export class ChatContentComponent implements OnInit, OnDestroy, OnChanges, After
   @Input() userChannel: Channel;
   public defaultImage: any = "../assets/avatar-3.png";
   public user: User;
-  container: HTMLElement;
+  public container: HTMLElement;
   public message: string = '';
   public messageContent: Array<Message> = [];
   public wsSubscription: Subscription;
   private Subscribe: Subscription[] = [];
 
-  private destroy$ = new Subject();
-
   constructor(private wsService: WebsocketService,
-              private api: AuthService,
-              private route: ActivatedRoute) {
+              private api: ApiService) {
   }
 
   ngOnInit(): void {

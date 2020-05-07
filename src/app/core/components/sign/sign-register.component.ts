@@ -36,11 +36,8 @@ export class SignComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((params: Params) => {
       if (params['registered']) {
-        //true
       } else if (params['accessDenied']) {
-        //error
       }
-
     })
   }
 
@@ -54,7 +51,7 @@ export class SignComponent implements OnInit, OnDestroy {
       username: this.form.value.username,
       password: this.form.value.password
     }
-    this.auth.login(user)
+    this.auth.setLogin(user)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.router.navigate(['home']),
         (err: HttpErrorResponse) => {

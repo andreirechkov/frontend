@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from '../../../shared/interface/user';
-import { AuthService } from '../../../shared/service/auth.service';
 import { BsModalService } from 'ngx-bootstrap';
-import { SettingEditComponent } from '../setting-edit/setting-edit.component';
-import {map, switchMap, takeUntil} from 'rxjs/operators';
-import {forkJoin, Subject, Subscription} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
+import { SettingEditComponent } from '../../components/setting-edit/setting-edit.component';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from '../../../shared/service/api.service';
 
 @Component({
   selector: 'app-setting',
@@ -17,7 +17,11 @@ export class SettingComponent implements OnInit, OnDestroy {
   public id: number;
   public defaultImage: any = "../assets/avatar-3.png";
 
-  constructor(private api: AuthService,
+  private routeSubscription: Subscription;
+  private querySubscription: Subscription;
+  private destroy$ = new Subject();
+
+  constructor(private api: ApiService,
               private modalService: BsModalService,
               private router: Router,
               private route: ActivatedRoute) {
@@ -32,11 +36,6 @@ export class SettingComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-
-  private routeSubscription: Subscription;
-  private querySubscription: Subscription;
-  private destroy$ = new Subject();
 
   ngOnInit(): void {
     this.api.getUser(this.id)
@@ -68,7 +67,7 @@ export class SettingComponent implements OnInit, OnDestroy {
         }
       })
       if (exists) {
-        this.api.addContactChannel(body).pipe(takeUntil(this.destroy$))
+        this.api.setContactChannel(body).pipe(takeUntil(this.destroy$))
           .subscribe(() => {},
             error => console.log(error),
             () => {

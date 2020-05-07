@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import {HttpErrorResponse} from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-registration',
@@ -12,7 +12,6 @@ import {HttpErrorResponse} from '@angular/common/http';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
-
   public form: FormGroup;
   public destroy$ = new Subject();
   public respErrors;
@@ -22,7 +21,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private api: AuthService,
     private formBuilder: FormBuilder,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -46,10 +45,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   public newUser(): void {
     const user = Object.assign({}, this.form.value);
-    this.api.register(user)
+    this.api.setRegister(user)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
-        this.api.registerContact(`${res.id}`)
+        this.api.setRegisterContact(`${res.id}`)
           .pipe(takeUntil(this.destroy$))
           .subscribe();
         this.router.navigate(['login'], {

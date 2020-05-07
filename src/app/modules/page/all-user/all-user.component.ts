@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import { AuthService } from '../../../shared/service/auth.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from '../../../shared/interface/user';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ApiService } from '../../../shared/service/api.service';
 
 @Component({
   selector: 'app-all-user',
@@ -14,7 +14,7 @@ export class AllUserComponent implements OnInit, OnDestroy {
   public defaultImage: any = "../assets/avatar-3.png";
 
   private destroy$ = new Subject();
-  constructor(private api: AuthService) { }
+  constructor(private api: ApiService) { }
 
   ngOnInit(): void {
     this.api.getUserAll()

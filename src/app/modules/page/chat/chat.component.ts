@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../../../../shared/service/auth.service';
 import { forkJoin, Subject } from 'rxjs';
-import { Router } from '@angular/router';
-import { takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
+import { ApiService } from '../../../shared/service/api.service';
 
 @Component({
   selector: 'app-chat',
@@ -10,7 +9,6 @@ import { takeUntil} from 'rxjs/operators';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit, OnDestroy {
-
   public netImage: any = "../assets/avatar-3.png";
   public userChannel: any;
   public user: any;
@@ -20,8 +18,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   public selected: any;
 
-  constructor(private api: AuthService,
-              private router: Router) {}
+  constructor(private api: ApiService) {}
 
   ngOnInit(): void {
     forkJoin(this.api.getChannel(this.api.getUserName()),

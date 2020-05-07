@@ -14,32 +14,31 @@
         <th [style]="{'width': '10%'}" scope="col">Цена</th>
         <th [style]="{'width': '45%'}" scope="col">Информация</th>
         <th [style]="{'width': '15%'}" scope="col">Дата публикации</th>
-  <!--      <th [style]="{'width': '20%'}" scope="col">Пользователь</th>-->
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let vacation of news; let i = index">
         <th scope="row">{{ i + 1}}</th>
         <td [style]="{'width': '10%'}">{{ vacation?.nameNews }}</td>
-        <td [style]="{'width': '20%'}"><a routerLink="/setting" [queryParams]="{'id': vacation?.user }"><img class="home-avatar" [src]="vacation?.images" alt="maria"></a></td>
+        <td [style]="{'width': '20%'}"><a routerLink="/setting" [queryParams]="{'id': vacation?.user }">
+          <img class="home-avatar" [src]="vacation?.images" alt="maria"></a></td>
         <td [style]="{'width': '10%'}">{{ vacation?.price }}</td>
         <td class="content"><p>{{ vacation?.content }}</p></td>
         <td [style]="{'width': '15%'}">{{ vacation?.created_at | date }}</td>
-  <!--      <td [style]="{'width': '10%'}"><img class="avatar" src="/assets/maria.jpg" alt="maria"></td>-->
       </tr>
       </tbody>
     </table>
     <div class="header">
       <a routerLink="/create" class="card">
         <div class="photo">
-          <img src="/assets/team.jpg" alt="maria">
+          <img src="/assets/team.png" alt="team">
         </div>
         <h2 class="m-2">Арт Команда</h2>
         <p>Подберите себе арт-команду по интересам</p>
       </a>
       <a routerLink="/create" class="card">
         <div class="photo">
-          <img src="/assets/new.png" alt="maria">
+          <img src="/assets/new.png" alt="new">
         </div>
         <h2 class="m-2">Создать</h2>
         <p>В любой момент вы можете создать публикацию вашей аренды, поиска работы</p>

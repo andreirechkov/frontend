@@ -1,10 +1,10 @@
-import {ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap';
 import { User } from '../../../shared/interface/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../../shared/service/auth.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ApiService } from '../../../shared/service/api.service';
 
 @Component({
   selector: 'app-setting-edit',
@@ -19,8 +19,7 @@ export class SettingEditComponent implements OnInit, OnDestroy {
 
   constructor(private bsModalRef: BsModalRef,
               private formBuilder: FormBuilder,
-              private api: AuthService,
-              private cd: ChangeDetectorRef) { }
+              private api: ApiService) { }
 
   private destroy$ = new Subject();
 
@@ -53,7 +52,7 @@ export class SettingEditComponent implements OnInit, OnDestroy {
 
   public saveChange(): void {
     const user = Object.assign({}, this.form.value);
-    this.api.profile(user, this.fileToUpload)
+    this.api.editProfile(user, this.fileToUpload)
       .pipe(takeUntil(this.destroy$))
       .subscribe(res => {
         console.log(res);

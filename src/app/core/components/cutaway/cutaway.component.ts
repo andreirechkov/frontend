@@ -1,20 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-cutaway',
   templateUrl: './cutaway.component.html',
   styleUrls: ['./cutaway.component.scss']
 })
-export class CutawayComponent implements OnInit {
+export class CutawayComponent {
 
-  constructor(
-    private router: Router
-  ) { }
-
-  ngOnInit() {}
-
-  public clickOnSign(): void {
-    this.router.navigate(['login']);
-  }
+  constructor() {}
 }
