@@ -62,6 +62,24 @@ export class ApiService {
     return this.http.post<any>(API_Channel_ADD, body);
   }
 
+  public setVacancy(body, image: any): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('user', body.user);
+    formData.append('nameNews', body.nameNews);
+    formData.append('image', image, image.name);
+    formData.append('vacancy', body.vacancy);
+    formData.append('workTime', body.workTime);
+    formData.append('experience', body.user);
+    formData.append('content', body.vacancy);
+    formData.append('price', body.workTime);
+    formData.append('category', body.category);
+    formData.append('workTime', body.workTime);
+    formData.append('coordinate', body.coordinate);
+    formData.append('email', body.email);
+    formData.append('phone', body.phone);
+    return this.http.post<User>(API_NEWS, formData);
+  }
+
   public editProfile(body, image: any): Observable<any> {
     const formData: FormData = new FormData();
     if (image) {

@@ -27,7 +27,7 @@
           <tr *ngFor="let vacation of filterUsers; let i = index">
             <th scope="row">{{ i + 1}}</th>
             <td [style]="{'width': '20%'}"><a routerLink="/setting" [queryParams]="{'id': vacation?.user }">
-              <img class="home-avatar" [src]="vacation?.images" alt="maria"></a></td>
+              <img class="home-avatar" [src]="vacation?.image" alt="maria"></a></td>
             <td [style]="{'width': '15%'}">{{ vacation?.price }}</td>
             <td class="content"><p>{{ vacation?.content }}</p></td>
             <td [style]="{'width': '20%'}">{{ vacation?.created_at | date }}</td>
@@ -44,7 +44,7 @@
         <h2 class="m-2">Арт Команда</h2>
         <p>Подберите себе арт-команду по интересам</p>
       </a>
-      <a routerLink="/create" class="card">
+      <a routerLink="/ad" class="card">
         <div class="photo">
           <img src="/assets/new.png" alt="new">
         </div>

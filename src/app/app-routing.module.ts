@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CutawayComponent, SignComponent, RegistrationComponent } from './core/components/core-index';
 import { HomeComponent, AllUserComponent, ChatComponent, PersonComponent, MapComponent, SettingComponent } from './modules/page/page'
 import { AuthLayoutComponent, SiteLayoutComponent, AuthGuard } from '../app/shared/shared';
+import { CreateNewsComponent } from './modules/components/components';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'chat-messages', component: ChatComponent },
       { path: 'person', component: PersonComponent },
       { path: 'maps', component: MapComponent },
+      { path: 'ad', component: CreateNewsComponent },
       { path: 'setting', component: SettingComponent }
     ]
   }

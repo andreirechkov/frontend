@@ -1,1 +1,356 @@
-<p>create-news works!</p>
+<div class="container-fluid">
+  <div class="modal-header">
+    <div class="submit-button">
+      <p>Создать объявление</p>
+    </div>
+  </div>
+  <div class="header">
+    <h1>Параметры</h1>
+  </div>
+  <div class="header-main">
+    <div class="category">
+      <p>Категория:</p>
+      <label for="nameNews" class="sr-only">Last name</label>
+      <select id="nameNews" class="form-control" (click)="select($event.target.value)">
+        <option value="" disabled selected>Выберете категорию</option>
+        <option>Поиск работы</option>
+        <option>Сдача помещения</option>
+        <option>Арт-команда</option>
+      </select>
+    </div>
+  </div>
+  <form (ngSubmit)="saveVacancy()" [formGroup]="form" *ngIf="selectAd === 'Поиск работы'" class="container">
+    <div class="category">
+      <label for="vacancy" class="sr-only"></label>
+      <p>Вакансия:</p>
+      <input id="vacancy"
+             type="text"
+             class="form-control"
+             placeholder="Напишите название вакансии" formControlName="vacancy">
+    </div>
+    <div class="category">
+      <p>График работы:</p>
+      <label for="workTime" class="sr-only">Last name</label>
+      <select id="workTime" class="form-control" formControlName="workTime">
+        <option value="" disabled selected>Выберете график работы</option>
+        <option>Вахтовый метод</option>
+        <option>Неполный день</option>
+        <option>Полный день</option>
+        <option>Свободный график</option>
+        <option>Сменный график</option>
+        <option>Удаленная работа</option>
+      </select>
+    </div>
+    <div class="category">
+      <p>Опыт работы:</p>
+      <label for="experience" class="sr-only">Last name</label>
+      <select id="experience" class="form-control" formControlName="experience">
+        <option value="" disabled selected>--</option>
+        <option>Не имеет значения</option>
+        <option>Более 1 года</option>
+        <option>Более 3 лет</option>
+        <option>Более 5 лет</option>
+        <option>Более 10 лет</option>
+      </select>
+    </div>
+    <div class="category">
+      <label for="content" class="sr-only"></label>
+      <p>Описание вакансии и компании:</p>
+      <textarea autosize class="form-control" placeholder="Напишите об объявлении"
+                id="content" maxlength="400" formControlName="content"></textarea>
+    </div>
+    <div class="category">
+      <label for="price" class="sr-only"></label>
+      <p>Зарплата:</p>
+      <input id="price"
+             type="number"
+             class="form-control"
+             placeholder="Напишите желаемую Зарплату" formControlName="price">
+    </div>
+    <div class="category custom-file">
+      <input type="file"
+             (change)="onFileChange($event.target.files)"
+             class="custom-file-input" id="validatedCustomFile" required>
+      <label class="custom-file-label" for="validatedCustomFile">Выберете фото... {{ fileToUpload?.name }}</label>
+    </div>
+    <div class="header">
+      <h1>Место работы</h1>
+    </div>
+    <div [style]="{'width': '70%'}">
+      <label for="coordinate" class="sr-only"></label>
+      <input id="coordinate"
+             type="text"
+             class="form-control"
+             placeholder="Напиши желаемую точку работы" formControlName="coordinate">
+    </div>
+    <agm-map
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="zoom"
+      [disableDefaultUI]="false"
+      [zoomControl]="false"
+      (mapClick)="mapClicked($event)">
+
+      <agm-marker
+        *ngFor="let m of markers; let i = index"
+        (markerClick)="clickedMarker(m.label, i)"
+        [latitude]="m.lat"
+        [longitude]="m.lng"
+        [label]="m.label"
+        [markerDraggable]="m.draggable"
+        (dragEnd)="markerDragEnd(m, $event)">
+
+        <agm-info-window>
+          <strong>InfoWindow content</strong>
+        </agm-info-window>
+
+      </agm-marker>
+
+      <agm-circle [latitude]="lat + 0.3" [longitude]="lng"
+                  [radius]="5000"
+                  [fillColor]="'red'"
+                  [circleDraggable]="true"
+                  [editable]="true">
+      </agm-circle>
+
+    </agm-map>
+    <div class="header">
+      <h1>Контакты</h1>
+    </div>
+    <div class="category">
+      <label for="email" class="sr-only"></label>
+      <p>Почта:</p>
+      <input id="email"
+             type="text"
+             class="form-control"
+             placeholder="Напишите название почты" formControlName="email">
+    </div>
+    <div class="category">
+      <label for="phone" class="sr-only"></label>
+      <p>Телефон:</p>
+      <input id="phone"
+             type="text"
+             class="form-control"
+             placeholder="Напишите ваш телефон" maxlength="15" formControlName="phone">
+    </div>
+    <div class="modal-footer">
+      <div class="submit-button">
+        <input class="btn btn-primary btn-save" type="submit" value="Сохранить">
+      </div>
+    </div>
+  </form>
+  <form (ngSubmit)="saveVacancy()" [formGroup]="form" *ngIf="selectAd === 'Сдача помещения'" class="container">
+    <div class="category">
+      <p>Тип офиса:</p>
+      <label for="vacancy" class="sr-only"></label>
+      <select id="vacancy" class="form-control" formControlName="vacancy">
+        <option value="" disabled selected>Выберете тип</option>
+        <option>Аренда</option>
+        <option>Продажа</option>
+      </select>
+    </div>
+    <div class="category">
+      <label for="content" class="sr-only"></label>
+      <p>Описание помещения:</p>
+      <textarea autosize class="form-control" placeholder="Напишите об объявлении"
+                id="content" maxlength="400" formControlName="content"></textarea>
+    </div>
+    <div class="category">
+      <label for="price" class="sr-only"></label>
+      <p>Цена:</p>
+      <input id="price"
+             type="number"
+             class="form-control"
+             placeholder="Напишите цену офиса" formControlName="price">
+    </div>
+    <div class="category" *ngFor="let image of images">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="validatedCustomFile"
+               (change)="onFileChange($event.target.files)" required>
+        <label class="custom-file-label" for="validatedCustomFile">Выберете фото... {{ fileToUpload?.name }}</label>
+      </div>
+      <div class="submit-button">
+        <button class="btn btn-primary btn-save" (click)="plusImage()" type="button">+1</button>
+      </div>
+      <div *ngIf="images.length > 1" class="submit-button">
+        <button class="btn btn-danger btn-save" (click)="deleteImage()" type="button">Удалить</button>
+      </div>
+    </div>
+    <div class="header">
+      <h1>Адрес</h1>
+    </div>
+    <div [style]="{'width': '70%'}">
+      <label for="coordinate" class="sr-only"></label>
+      <input id="coordinate"
+             type="text"
+             class="form-control"
+             placeholder="Напиши желаемую точку работы" formControlName="coordinate">
+    </div>
+    <agm-map
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="zoom"
+      [disableDefaultUI]="false"
+      [zoomControl]="false"
+      (mapClick)="mapClicked($event)">
+
+      <agm-marker
+        *ngFor="let m of markers; let i = index"
+        (markerClick)="clickedMarker(m.label, i)"
+        [latitude]="m.lat"
+        [longitude]="m.lng"
+        [label]="m.label"
+        [markerDraggable]="m.draggable"
+        (dragEnd)="markerDragEnd(m, $event)">
+
+        <agm-info-window>
+          <strong>InfoWindow content</strong>
+        </agm-info-window>
+
+      </agm-marker>
+
+      <agm-circle [latitude]="lat + 0.3" [longitude]="lng"
+                  [radius]="5000"
+                  [fillColor]="'red'"
+                  [circleDraggable]="true"
+                  [editable]="true">
+      </agm-circle>
+
+    </agm-map>
+    <div class="header">
+      <h1>Контакты</h1>
+    </div>
+    <div class="category">
+      <p>Категория:</p>
+      <label for="category" class="sr-only"></label>
+      <select id="category" class="form-control" formControlName="category">
+        <option value="" disabled selected>Выберете правособственности</option>
+        <option>Посредник</option>
+        <option>Собственник</option>
+      </select>
+    </div>
+    <div class="category">
+      <label for="email" class="sr-only"></label>
+      <p>Почта:</p>
+      <input id="email"
+             type="text"
+             class="form-control"
+             placeholder="Напишите название почты" formControlName="email">
+    </div>
+    <div class="category">
+      <label for="phone" class="sr-only"></label>
+      <p>Телефон:</p>
+      <input id="phone"
+             type="text"
+             class="form-control"
+             placeholder="Напишите ваш телефон" maxlength="15" formControlName="phone">
+    </div>
+    <div class="modal-footer">
+      <div class="submit-button">
+        <input class="btn btn-primary btn-save" type="submit" value="Сохранить">
+      </div>
+    </div>
+  </form>
+  <form (ngSubmit)="saveVacancy()" [formGroup]="form" *ngIf="selectAd === 'Арт-команда'" class="container">
+    <div class="category">
+      <p>Специализация:</p>
+      <label for="vacancy" class="sr-only"></label>
+      <input id="vacancy"
+             type="text"
+             class="form-control"
+             placeholder="Напишите специализацию (Праздник)" formControlName="vacancy">
+    </div>
+    <div class="category">
+      <label for="content" class="sr-only"></label>
+      <p>Описание деятельности:</p>
+      <textarea autosize class="form-control" placeholder="Напишите об объявлении"
+                id="content" maxlength="400" formControlName="content"></textarea>
+    </div>
+    <div class="category">
+      <label for="price" class="sr-only"></label>
+      <p>Оплата:</p>
+      <input id="price"
+             type="number"
+             class="form-control"
+             placeholder="Напишите предварительную оплату" formControlName="price">
+    </div>
+    <div class="category" *ngFor="let image of images">
+      <div class="custom-file">
+        <input type="file"
+               (change)="onFileChange($event.target.files)" class="custom-file-input" id="validatedCustomFile" required>
+        <label class="custom-file-label" for="validatedCustomFile">Выберете фото... {{ fileToUpload?.name }}</label>
+      </div>
+      <div class="submit-button">
+        <button class="btn btn-primary btn-save" (click)="plusImage()" type="button">+1</button>
+      </div>
+      <div *ngIf="images.length > 1" class="submit-button">
+        <button class="btn btn-danger btn-save" (click)="deleteImage()" type="button">Удалить</button>
+      </div>
+    </div>
+    <div class="header">
+      <h1>Адрес</h1>
+    </div>
+    <div [style]="{'width': '70%'}">
+      <label for="coordinate" class="sr-only"></label>
+      <input id="coordinate"
+             type="text"
+             class="form-control"
+             placeholder="Напиши желаемую точку работы" formControlName="coordinate">
+    </div>
+    <agm-map
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="zoom"
+      [disableDefaultUI]="false"
+      [zoomControl]="false"
+      (mapClick)="mapClicked($event)">
+
+      <agm-marker
+        *ngFor="let m of markers; let i = index"
+        (markerClick)="clickedMarker(m.label, i)"
+        [latitude]="m.lat"
+        [longitude]="m.lng"
+        [label]="m.label"
+        [markerDraggable]="m.draggable"
+        (dragEnd)="markerDragEnd(m, $event)">
+
+        <agm-info-window>
+          <strong>InfoWindow content</strong>
+        </agm-info-window>
+
+      </agm-marker>
+
+      <agm-circle [latitude]="lat + 0.3" [longitude]="lng"
+                  [radius]="5000"
+                  [fillColor]="'red'"
+                  [circleDraggable]="true"
+                  [editable]="true">
+      </agm-circle>
+
+    </agm-map>
+    <div class="header">
+      <h1>Контакты</h1>
+    </div>
+    <div class="category">
+      <label for="email" class="sr-only"></label>
+      <p>Почта:</p>
+      <input id="email"
+             type="text"
+             class="form-control"
+             placeholder="Напишите название почты" formControlName="email">
+    </div>
+    <div class="category">
+      <label for="phone" class="sr-only"></label>
+      <p>Телефон:</p>
+      <input id="phone"
+             type="text"
+             class="form-control"
+             placeholder="Напишите ваш телефон" maxlength="15" formControlName="phone">
+    </div>
+    <div class="modal-footer">
+      <div class="submit-button">
+        <input class="btn btn-primary btn-save" type="submit" value="Сохранить">
+      </div>
+    </div>
+  </form>
+</div>
