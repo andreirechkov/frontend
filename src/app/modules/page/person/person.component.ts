@@ -13,7 +13,7 @@ export class PersonComponent implements OnInit, OnDestroy {
   public news: Array<any> = [];
   public users: Array<User>;
   public filterUsers: Array<User> = [];
-  public advertising: string = 'Аренда помещений';
+  public advertising: string = 'Аренда помещения';
 
   private destroy$ = new Subject();
 

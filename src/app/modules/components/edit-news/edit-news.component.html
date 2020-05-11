@@ -1,0 +1,97 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">
+    {{ vacancy?.vacancy }}
+  </h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="form"
+      class="form-signin card-reg"
+      (ngSubmit)="saveChange()">
+    <div class="test">
+      <label for="vacancy" class="sr-only"></label>
+      <p>Вакансия:</p>
+      <input id="vacancy"
+             type="text"
+             class="form-control"
+             placeholder="Напишите название вакансии" formControlName="vacancy">
+    </div>
+    <div class="test">
+      <p>График работы:</p>
+      <label for="workTime" class="sr-only">Last name</label>
+      <select id="workTime" class="form-control" formControlName="workTime">
+        <option value="" disabled selected>Выберете график работы</option>
+        <option>Вахтовый метод</option>
+        <option>Неполный день</option>
+        <option>Полный день</option>
+        <option>Свободный график</option>
+        <option>Сменный график</option>
+        <option>Удаленная работа</option>
+      </select>
+    </div>
+    <div class="test">
+      <p>Опыт работы:</p>
+      <label for="experience" class="sr-only">Last name</label>
+      <select id="experience" class="form-control" formControlName="experience">
+        <option value="" disabled selected></option>
+        <option>Не имеет значения</option>
+        <option>Более 1 года</option>
+        <option>Более 3 лет</option>
+        <option>Более 5 лет</option>
+        <option>Более 10 лет</option>
+      </select>
+    </div>
+    <div class="test">
+      <label for="content" class="sr-only"></label>
+      <p>Описание вакансии и компании:</p>
+      <textarea autosize class="form-control" placeholder="Напишите об объявлении"
+                id="content" maxlength="400" formControlName="content"></textarea>
+    </div>
+    <div class="test">
+      <p>Адрес:</p>
+      <label for="coordinate" class="sr-only"></label>
+      <input id="coordinate"
+             type="text"
+             class="form-control"
+             placeholder="Напиши желаемую точку работы" formControlName="coordinate">
+    </div>
+    <div class="test">
+      <p>Категория:</p>
+      <label for="category" class="sr-only"></label>
+      <select id="category" class="form-control" formControlName="category">
+        <option value="" disabled selected>Выберете правособственности</option>
+        <option>Посредник</option>
+        <option>Собственник</option>
+      </select>
+    </div>
+    <div class="test">
+      <label for="price" class="sr-only"></label>
+      <p>Зарплата:</p>
+      <input id="price"
+             type="number"
+             class="form-control"
+             placeholder="Напишите желаемую Зарплату" formControlName="price">
+    </div>
+    <div class="test">
+      <label for="email" class="sr-only"></label>
+      <p>Почта:</p>
+      <input id="email"
+             type="text"
+             class="form-control"
+             placeholder="Напишите название почты" formControlName="email">
+    </div>
+    <div class="test">
+      <label for="phone" class="sr-only"></label>
+      <p>Телефон:</p>
+      <input id="phone"
+             type="text"
+             class="form-control"
+             placeholder="Напишите ваш телефон" maxlength="15" formControlName="phone">
+    </div>
+  <div class="modal-footer">
+    <div class="submit-button">
+      <input class="btn btn-primary btn-save" type="submit" value="Сохранить">
+    </div>
+  </div>
+</form>

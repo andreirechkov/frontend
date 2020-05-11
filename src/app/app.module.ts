@@ -19,11 +19,14 @@ import { CutawayComponent, SignComponent, RegistrationComponent, HeaderComponent
 import { HomeComponent, AllUserComponent, ChatComponent,
   PersonComponent, MapComponent, SettingComponent, VacancyComponent }
   from './modules/page/page'
-import { ChatContentComponent, SettingEditComponent, CreateNewsComponent, SettingCreateComponent } from './modules/components/components'
+import { ChatContentComponent, SettingEditComponent,
+  CreateNewsComponent, SettingCreateComponent, DeleteNewsComponent, EditNewsComponent
+} from './modules/components/components'
 import { AuthLayoutComponent, SiteLayoutComponent, TokenInterceptor } from '../app/shared/shared';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,9 @@ import { AppRoutingModule } from './app-routing.module';
     CreateNewsComponent,
     AllUserComponent,
     SettingCreateComponent,
-    VacancyComponent
+    VacancyComponent,
+    DeleteNewsComponent,
+    EditNewsComponent
   ],
     imports: [
         BrowserModule,
@@ -64,7 +69,8 @@ import { AppRoutingModule } from './app-routing.module';
         AgmCoreModule,
         MatFormFieldModule,
         MatSelectModule,
-        NgSelectModule
+        NgSelectModule,
+        NgbModule
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

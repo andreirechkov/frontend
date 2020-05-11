@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left"></h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<p [style]="{'font-size': 'x-large', 'text-align': 'center'}">Вы уверены?</p>
+<div class="modal-footer justify-content-between">
+  <div class="submit-button">
+    <input (click)="closeModal()" class="btn btn-warning" [style]="{'width': '100px'}" value="Отмена">
+  </div>
+  <div class="submit-button">
+    <input (click)="delete()" class="btn btn-danger btn-save" type="submit" value="Удалить">
+  </div>
+</div>

@@ -66,22 +66,38 @@ export class ApiService {
     return this.http.post<any>(API_Channel_ADD, body);
   }
 
-  public setVacancy(body, image: any): Observable<any> {
+  public setVacancy(body, images: any): Observable<any> {
     const formData: FormData = new FormData();
+    images.forEach((image, index) => {
+      formData.append(`image${index + 1}`, image.fileToUpload, image.fileToUpload.name);
+    });
     formData.append('user', body.user);
     formData.append('nameNews', body.nameNews);
-    formData.append('image', image, image.name);
     formData.append('vacancy', body.vacancy);
     formData.append('workTime', body.workTime);
-    formData.append('experience', body.user);
-    formData.append('content', body.vacancy);
-    formData.append('price', body.workTime);
+    formData.append('experience', body.experience);
+    formData.append('content', body.content);
+    formData.append('price', body.price);
     formData.append('category', body.category);
-    formData.append('workTime', body.workTime);
     formData.append('coordinate', body.coordinate);
     formData.append('email', body.email);
     formData.append('phone', body.phone);
     return this.http.post<User>(API_NEWS, formData);
+  }
+
+  public editVacancy(body, vacancyId: number): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('user', body.user);
+    formData.append('vacancy', body.vacancy);
+    formData.append('workTime', body.workTime);
+    formData.append('experience', body.experience);
+    formData.append('content', body.content);
+    formData.append('price', body.price);
+    formData.append('category', body.category);
+    formData.append('coordinate', body.coordinate);
+    formData.append('email', body.email);
+    formData.append('phone', body.phone);
+    return this.http.put<any>(API_NEWS + `${vacancyId}/`, formData);
   }
 
   public editProfile(body, image: any): Observable<any> {
@@ -98,5 +114,9 @@ export class ApiService {
     formData.append('area', body.area);
     formData.append('content', body.content);
     return this.http.put<User>(API_Profile + `${this.getUserId()}/`, formData);
+  }
+
+  public deleteVacancy(id: number): Observable<any> {
+    return this.http.delete<any>(API_NEWS + `${id}/`);
   }
 }

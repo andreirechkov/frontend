@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ApiService } from '../../../shared/service/api.service';
 import {takeUntil} from 'rxjs/operators';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 // just an interface for type safety.
 interface marker {
@@ -17,17 +18,15 @@ interface marker {
   templateUrl: './create-news.component.html',
   styleUrls: ['./create-news.component.scss']
 })
-export class CreateNewsComponent implements OnInit {
+export class CreateNewsComponent implements OnInit, OnDestroy {
   public zoom: number = 15;
   public lat: number = 47.23629625;
   public lng: number = 39.71261501;
   public selectAd: string = '';
-  public fileToUpload: File = null;
-  public images: Array<any> = [{
-    image: ''
-  }]
-
+  public images: Array<any> = [{fileToUpload: null}]
   public form: FormGroup;
+
+  private destroy$ = new Subject();
 
   constructor(private formBuilder: FormBuilder,
               private api: ApiService,
@@ -42,18 +41,23 @@ export class CreateNewsComponent implements OnInit {
       vacancy: ['', []],
       workTime: ['', []],
       experience: ['', []],
-      content: ['', []],
-      price: ['', []],
+      content: ['', [Validators.required]],
+      price: ['', [Validators.required]],
       category: ['', []],
       coordinate: ['', []],
-      email: ['', []],
-      phone: ['', []],
-      image: ['', []]
+      email: ['', [Validators.required]],
+      phone: ['', [Validators.required]]
     });
   }
 
-  public onFileChange(files: FileList): void {
-    this.fileToUpload = files.item(0);
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+
+  public onFileChange(image, files: FileList): void {
+    image.fileToUpload = files.item(0);
   }
 
   public saveVacancy(): void {
@@ -67,7 +71,8 @@ export class CreateNewsComponent implements OnInit {
       user.nameNews = 'Соискатель';
     }
     user.coordinate = `${this.lat},${this.lng}`;
-    this.api.setVacancy(user, this.fileToUpload)
+    this.api.setVacancy(user, this.images)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(res => {
           console.log(res);
         },
@@ -83,7 +88,7 @@ export class CreateNewsComponent implements OnInit {
   }
 
   public plusImage(): void {
-    this.images.push({image: ''});
+    this.images.push({ fileToUpload: null});
   }
 
   public deleteImage(): void {

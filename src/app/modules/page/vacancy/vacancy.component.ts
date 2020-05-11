@@ -1,8 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import {switchMap, takeUntil} from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../../shared/service/api.service';
+import {element} from 'protractor';
+import {SettingEditComponent} from '../../components/setting-edit/setting-edit.component';
+import {BsModalService} from 'ngx-bootstrap';
+import {DeleteNewsComponent} from '../../components/delete-news/delete-news.component';
+import {EditNewsComponent} from '../../components/edit-news/edit-news.component';
 
 // just an interface for type safety.
 interface marker {
@@ -21,21 +26,21 @@ export class VacancyComponent implements OnInit, OnDestroy {
   public zoom: number = 15;
   public lat: number = 47.23629625;
   public lng: number = 39.71261501;
-  public selectAd: string = '';
   public fileToUpload: File = null;
   public vacancy: any = [];
   public userId: string = null;
-  public images: Array<any> = [{
-    image: ''
-  }]
+  public images: Array<any> = [];
+  public id: number;
 
   private routeSubscription: Subscription;
   private querySubscription: Subscription;
-  public id: number;
   private destroy$ = new Subject();
+
   constructor(
     private api: ApiService,
-    private route: ActivatedRoute
+    private modalService: BsModalService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.routeSubscription = route.params
       .pipe(takeUntil(this.destroy$))
@@ -54,14 +59,51 @@ export class VacancyComponent implements OnInit, OnDestroy {
     this.api.getVacancy(this.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe(vacancy => {
-        console.log(vacancy);
-     this.vacancy = vacancy;
+        this.vacancy = vacancy;
+        Object.keys(this.vacancy).forEach(element => {
+          if(element.includes('image') && this.vacancy[element]) {
+            this.images.push(this.vacancy[element]);
+          }
+        });
     })
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  public delete(): void {
+    const initialState = { vacancyId: this.vacancy.id };
+
+    const modal = this.modalService
+      .show(DeleteNewsComponent, { initialState });
+
+    modal.content
+      .onDeleteVacancy
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.router.navigate(['/person']);
+        modal.hide()
+      });
+  }
+
+  public edit(): void {
+    const initialState = { vacancy: this.vacancy };
+
+    const modal = this.modalService
+      .show(EditNewsComponent, { initialState });
+
+    modal.content
+      .onEditVacancy
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap(() => this.api.getVacancy(this.id))
+      )
+      .subscribe(x => {
+        this.vacancy = x;
+        modal.hide()
+      });
   }
 
   clickedMarker(label: string, index: number) {

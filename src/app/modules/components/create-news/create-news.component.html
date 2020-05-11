@@ -67,11 +67,18 @@
              class="form-control"
              placeholder="Напишите желаемую Зарплату" formControlName="price">
     </div>
-    <div class="category custom-file">
-      <input type="file"
-             (change)="onFileChange($event.target.files)"
-             class="custom-file-input" id="validatedCustomFile" required>
-      <label class="custom-file-label" for="validatedCustomFile">Выберете фото... {{ fileToUpload?.name }}</label>
+    <div class="category" *ngFor="let image of images">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="validatedCustomFile"
+               (change)="onFileChange(image, $event.target.files)" required>
+        <label class="custom-file-label" for="validatedCustomFile">Выберете фото... {{ image.fileToUpload?.name }}</label>
+      </div>
+      <div class="submit-button">
+        <button class="btn btn-primary btn-save" [disabled]="images.length > 3" (click)="plusImage()" type="button">+1</button>
+      </div>
+      <div *ngIf="images.length > 1" class="submit-button">
+        <button class="btn btn-danger btn-save" (click)="deleteImage()" type="button">Удалить</button>
+      </div>
     </div>
     <div class="header">
       <h1>Место работы</h1>
@@ -135,7 +142,7 @@
     </div>
     <div class="modal-footer">
       <div class="submit-button">
-        <input class="btn btn-primary btn-save" type="submit" value="Сохранить">
+        <input class="btn btn-primary btn-save" [disabled]="form.invalid" type="submit" value="Сохранить">
       </div>
     </div>
   </form>
@@ -166,11 +173,11 @@
     <div class="category" *ngFor="let image of images">
       <div class="custom-file">
         <input type="file" class="custom-file-input" id="validatedCustomFile"
-               (change)="onFileChange($event.target.files)" required>
-        <label class="custom-file-label" for="validatedCustomFile">Выберете фото... {{ fileToUpload?.name }}</label>
+               (change)="onFileChange(image, $event.target.files)" required>
+        <label class="custom-file-label" for="validatedCustomFile">Выберете фото... {{ image.fileToUpload?.name }}</label>
       </div>
       <div class="submit-button">
-        <button class="btn btn-primary btn-save" (click)="plusImage()" type="button">+1</button>
+        <button class="btn btn-primary btn-save" [disabled]="images.length > 3" (click)="plusImage()" type="button">+1</button>
       </div>
       <div *ngIf="images.length > 1" class="submit-button">
         <button class="btn btn-danger btn-save" (click)="deleteImage()" type="button">Удалить</button>
@@ -247,7 +254,7 @@
     </div>
     <div class="modal-footer">
       <div class="submit-button">
-        <input class="btn btn-primary btn-save" type="submit" value="Сохранить">
+        <input class="btn btn-primary btn-save" [disabled]="form.invalid" type="submit" value="Сохранить">
       </div>
     </div>
   </form>
@@ -276,12 +283,12 @@
     </div>
     <div class="category" *ngFor="let image of images">
       <div class="custom-file">
-        <input type="file"
-               (change)="onFileChange($event.target.files)" class="custom-file-input" id="validatedCustomFile" required>
-        <label class="custom-file-label" for="validatedCustomFile">Выберете фото... {{ fileToUpload?.name }}</label>
+        <input type="file" class="custom-file-input" id="validatedCustomFile"
+               (change)="onFileChange(image, $event.target.files)" required>
+        <label class="custom-file-label" for="validatedCustomFile">Выберете фото... {{ image.fileToUpload?.name }}</label>
       </div>
       <div class="submit-button">
-        <button class="btn btn-primary btn-save" (click)="plusImage()" type="button">+1</button>
+        <button class="btn btn-primary btn-save" [disabled]="images.length > 3" (click)="plusImage()" type="button">+1</button>
       </div>
       <div *ngIf="images.length > 1" class="submit-button">
         <button class="btn btn-danger btn-save" (click)="deleteImage()" type="button">Удалить</button>
@@ -349,7 +356,7 @@
     </div>
     <div class="modal-footer">
       <div class="submit-button">
-        <input class="btn btn-primary btn-save" type="submit" value="Сохранить">
+        <input class="btn btn-primary btn-save" [disabled]="form.invalid" type="submit" value="Сохранить">
       </div>
     </div>
   </form>

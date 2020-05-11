@@ -13,7 +13,7 @@
   .header {
     text-align: center;
     border-bottom: 1px solid #dee2e6;
-    background-color: floralwhite;
+    background-color: whitesmoke;
     h1 {
       font-size: 26px;
       margin: 10px;
@@ -67,12 +67,8 @@
         flex-wrap: wrap;
         flex-direction: column;
         align-items: center;
-        width: 40%;
-        img {
-          border-radius: 10px;
-          text-align: center;
-          width: auto;
-          height: 270px;
+        .carousel {
+          outline: none;
         }
         .button-send {
           display: flex;
@@ -129,6 +125,15 @@
       justify-content: center;
       height: 290px;
       width: 90%;
+    }
+  }
+  ::ng-deep .picsum-img-wrapper {
+    img {
+      max-width: 450px;
+      border-radius: 10px;
+      text-align: center;
+      width: auto;
+      height: 300px;
     }
   }
 }

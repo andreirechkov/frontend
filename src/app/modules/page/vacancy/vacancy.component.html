@@ -10,13 +10,20 @@
   <div class="container">
     <div class="user-profile">
       <div class="profile">
-        <img [src]="vacancy?.image" alt="vacancy">
+        <ngb-carousel
+          interval="30000">
+          <ng-template ngbSlide *ngFor="let image of images; let i = index">
+            <div class="picsum-img-wrapper">
+              <img [src]="image" alt="Angular Carousel 1">
+            </div>
+          </ng-template>
+        </ngb-carousel>
         <div *ngIf="userId !== vacancy?.user?.toString()" class="button-send">
           <button class="btn btn-primary">Написать сообщение</button>
         </div>
         <div *ngIf="userId === vacancy?.user?.toString()" class="button-send">
-          <button class="btn btn-warning">Редактировать</button>
-          <button class="btn btn-danger">Удалить</button>
+          <button class="btn btn-warning" (click)="edit()">Редактировать</button>
+          <button class="btn btn-danger" (click)="delete()">Удалить</button>
         </div>
       </div>
       <div class="info">
