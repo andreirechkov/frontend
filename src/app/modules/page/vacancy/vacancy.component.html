@@ -1,0 +1,71 @@
+<div class="container-fluid">
+  <div class="modal-header">
+    <div class="submit-button">
+      <p>{{ vacancy?.nameNews }}</p>
+    </div>
+  </div>
+  <div class="header">
+    <h1>{{ vacancy?.vacancy }}</h1>
+  </div>
+  <div class="container">
+    <div class="user-profile">
+      <div class="profile">
+        <img [src]="vacancy?.image" alt="vacancy">
+        <div *ngIf="userId !== vacancy?.user?.toString()" class="button-send">
+          <button class="btn btn-primary">Написать сообщение</button>
+        </div>
+        <div *ngIf="userId === vacancy?.user?.toString()" class="button-send">
+          <button class="btn btn-warning">Редактировать</button>
+          <button class="btn btn-danger">Удалить</button>
+        </div>
+      </div>
+      <div class="info">
+        <ul>
+          <li><span>Категория:</span><p>{{ vacancy?.category }}</p></li>
+          <li><span>Цена:</span><p>{{ vacancy?.price }} P</p></li>
+          <li><span>Почта:</span><p>{{ vacancy?.email }} </p></li>
+          <li><span>Телефон:</span><p>{{ vacancy?.phone }} </p></li>
+          <li><span>Создание:</span><p>{{ vacancy?.created_at | date }} </p></li>
+          <li *ngIf="vacancy?.experience"><span>Опыт:</span><p>{{ vacancy?.experience }} </p></li>
+        </ul>
+      </div>
+    </div>
+    <div class="header">
+      <h1>Описание</h1>
+    </div>
+    <div class="about">
+      <p>{{ vacancy?.content }}</p>
+    </div>
+    <agm-map
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="zoom"
+      [disableDefaultUI]="false"
+      [zoomControl]="false"
+      (mapClick)="mapClicked($event)">
+
+      <agm-marker
+        *ngFor="let m of markers; let i = index"
+        (markerClick)="clickedMarker(m.label, i)"
+        [latitude]="m.lat"
+        [longitude]="m.lng"
+        [label]="m.label"
+        [markerDraggable]="m.draggable"
+        (dragEnd)="markerDragEnd(m, $event)">
+
+        <agm-info-window>
+          <strong>InfoWindow content</strong>
+        </agm-info-window>
+
+      </agm-marker>
+
+      <agm-circle [latitude]="lat + 0.3" [longitude]="lng"
+                  [radius]="5000"
+                  [fillColor]="'red'"
+                  [circleDraggable]="true"
+                  [editable]="true">
+      </agm-circle>
+
+    </agm-map>
+  </div>
+</div>

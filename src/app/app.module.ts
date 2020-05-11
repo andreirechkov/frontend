@@ -16,7 +16,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { CutawayComponent, SignComponent, RegistrationComponent, HeaderComponent } from './core/components/core-index';
-import { HomeComponent, AllUserComponent, ChatComponent, PersonComponent, MapComponent, SettingComponent } from './modules/page/page'
+import { HomeComponent, AllUserComponent, ChatComponent,
+  PersonComponent, MapComponent, SettingComponent, VacancyComponent }
+  from './modules/page/page'
 import { ChatContentComponent, SettingEditComponent, CreateNewsComponent, SettingCreateComponent } from './modules/components/components'
 import { AuthLayoutComponent, SiteLayoutComponent, TokenInterceptor } from '../app/shared/shared';
 
@@ -41,7 +43,8 @@ import { AppRoutingModule } from './app-routing.module';
     SettingEditComponent,
     CreateNewsComponent,
     AllUserComponent,
-    SettingCreateComponent
+    SettingCreateComponent,
+    VacancyComponent
   ],
     imports: [
         BrowserModule,

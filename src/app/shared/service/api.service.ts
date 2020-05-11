@@ -47,6 +47,10 @@ export class ApiService {
     return this.http.get<any>(API_Channel + `${username}`);
   }
 
+  public getVacancy(id: number): Observable<any> {
+    return this.http.get<any>(API_NEWS + `${id}/`);
+  }
+
   public setNews(body, image: any): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('images', image, image.name);

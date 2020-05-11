@@ -17,18 +17,20 @@
           <thead>
           <tr>
             <th scope="col">#</th>
+            <th [style]="{'width': '15%'}" scope="col">Название</th>
             <th [style]="{'width': '20%'}" scope="col">Фото</th>
             <th [style]="{'width': '15%'}" scope="col">Цена</th>
-            <th [style]="{'width': '45%'}" scope="col">Информация</th>
-            <th [style]="{'width': '20%'}" scope="col">Дата публикации</th>
+            <th [style]="{'width': '30%'}" scope="col">Описание</th>
+            <th [style]="{'width': '20%'}" scope="col">Создание</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let vacation of filterUsers; let i = index">
             <th scope="row">{{ i + 1}}</th>
-            <td [style]="{'width': '20%'}"><a routerLink="/setting" [queryParams]="{'id': vacation?.user }">
+            <td [style]="{'width': '15%'}">{{ vacation?.vacancy }}</td>
+            <td [style]="{'width': '20%'}"><a routerLink="/vacancy" [queryParams]="{'id': vacation?.id }">
               <img class="home-avatar" [src]="vacation?.image" alt="maria"></a></td>
-            <td [style]="{'width': '15%'}">{{ vacation?.price }}</td>
+            <td [style]="{'width': '15%'}">{{ vacation?.price }} P</td>
             <td class="content"><p>{{ vacation?.content }}</p></td>
             <td [style]="{'width': '20%'}">{{ vacation?.created_at | date }}</td>
           </tr>
