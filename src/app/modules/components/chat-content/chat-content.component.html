@@ -13,7 +13,7 @@
     <ul id="chat-log" class="chat-log">
       <li *ngFor="let message of messageContent" class="{{ message.author === userChannel.username ? 'sent' : 'replies' }}">
         <div class="image">
-          <img [src]="message.author === userChannel.username ? this.userChannel.image: user.person.image" alt="" />
+          <img [src]="message.author === userChannel.username ? this.userChannel.image : user.person.image || defaultImage" alt="" />
         </div>
         <div class="text">
          <p>{{ message.content }}</p>

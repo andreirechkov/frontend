@@ -13,19 +13,23 @@ export class PersonComponent implements OnInit, OnDestroy {
   public news: Array<any> = [];
   public users: Array<User>;
   public filterUsers: Array<User> = [];
-  public advertising: string = 'Аренда помещения';
+  public advertising: string = 'Арендодатель';
+  public role: string;
 
   private destroy$ = new Subject();
 
   constructor(private api: ApiService) {}
 
   ngOnInit(): void {
+    this.api.getUser(this.api.getUserId()).subscribe(role => {
+      this.role = role.person.typeUser;
+    })
     this.api.getNewsAll()
       .pipe(takeUntil(this.destroy$))
       .subscribe(res => {
        this.news = res;
        this.news.forEach(item => {
-         if (item.nameNews === 'Аренда помещения') {
+         if (item.nameNews === 'Арендодатель') {
            this.filterUsers.push(item);
          }
        });

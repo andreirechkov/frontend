@@ -2,8 +2,8 @@
   <div class="content">
     <div class="test">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" (click)="advertisingFilter('Аренда помещения')">
-          <a class="nav-link" [ngClass]="advertising === 'Аренда помещения' ? 'active' : ''">Аренда помещений</a>
+        <li class="nav-item" (click)="advertisingFilter('Арендодатель')">
+          <a class="nav-link" [ngClass]="advertising === 'Арендодатель' ? 'active' : ''">Аренда помещений</a>
         </li>
         <li class="nav-item" (click)="advertisingFilter('Соискатель')">
           <a class="nav-link" [ngClass]="advertising === 'Соискатель' ? 'active' : ''">Соискатели</a>
@@ -39,14 +39,14 @@
       </div>
     </div>
     <div class="header">
-      <a routerLink="/create" class="card">
+      <a routerLink="/art-command" class="card">
         <div class="photo">
           <img src="/assets/team.png" alt="team">
         </div>
         <h2 class="m-2">Арт Команда</h2>
         <p>Подберите себе арт-команду по интересам</p>
       </a>
-      <a routerLink="/ad" class="card">
+      <a *ngIf="role !== 'Предприниматель'" routerLink="/ad" class="card">
         <div class="photo">
           <img src="/assets/new.png" alt="new">
         </div>

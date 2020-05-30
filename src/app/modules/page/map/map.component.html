@@ -1,34 +1,39 @@
-<h1>Angular Google Maps (AGM) Demo</h1>
-<p><a href="https://angular-maps.com/" target="_blank">Official Website</a></p>
+<div class="container-fluid">
+  <div class="filter">
+    <label>
+      <select (click)="filterMarker($event.target.value)" class="form-control btn-primary">
+        <option disabled selected>Выберите фильтр</option>
+        <option value="">Все вакансии</option>
+        <option value="Соискатель">Поиск работы</option>
+        <option value="Арт-команда">Арт-команды</option>
+        <option value="Арендодатель">Аренда</option>
+      </select>
+    </label>
+  </div>
+  <agm-map
+    [latitude]="lat"
+    [longitude]="lng"
+    [zoom]="zoom"
+    [disableDefaultUI]="false"
+    [zoomControl]="true"
+    [mapTypeControl]="true">
+    <agm-marker
+      *ngFor="let m of markers; let i = index"
+      (markerClick)="clickedMarker(infowindow, i)"
+      [latitude]="m.lat"
+      [longitude]="m.lng"
+      [label]="m.label"
+      [markerDraggable]="m.draggable">
 
-<agm-map
-  [latitude]="lat"
-  [longitude]="lng"
-  [zoom]="zoom"
-  [disableDefaultUI]="false"
-  [zoomControl]="false"
-  (mapClick)="mapClicked($event)">
+      <agm-info-window
+        maxWidth="150"
+        #infowindow>
+        <strong>{{ infoWindow }}</strong>
+        <button [style]="{'display': 'block','font-size': '10px', 'padding': '5px', 'margin': '5px 0'}"
+                class="btn btn-danger"
+                (click)="redirect()">Вакансия</button>
+      </agm-info-window>
 
-  <agm-marker
-    *ngFor="let m of markers; let i = index"
-    (markerClick)="clickedMarker(m.label, i)"
-    [latitude]="m.lat"
-    [longitude]="m.lng"
-    [label]="m.label"
-    [markerDraggable]="m.draggable"
-    (dragEnd)="markerDragEnd(m, $event)">
-
-    <agm-info-window>
-      <strong>InfoWindow content</strong>
-    </agm-info-window>
-
-  </agm-marker>
-
-  <agm-circle [latitude]="lat + 0.3" [longitude]="lng"
-              [radius]="5000"
-              [fillColor]="'red'"
-              [circleDraggable]="true"
-              [editable]="true">
-  </agm-circle>
-
-</agm-map>
+    </agm-marker>
+  </agm-map>
+</div>

@@ -74,7 +74,7 @@ export class SettingComponent implements OnInit, OnDestroy {
             this.router.navigate(['/chat-messages'])
           });
       } else {
-        console.log('error');
+        this.router.navigate(['/chat-messages'])
       }
     });
   }

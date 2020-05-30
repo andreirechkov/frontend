@@ -7,19 +7,7 @@
   <div class="header">
     <h1>Параметры</h1>
   </div>
-  <div class="header-main">
-    <div class="category">
-      <p>Категория:</p>
-      <label for="nameNews" class="sr-only">Last name</label>
-      <select id="nameNews" class="form-control" (click)="select($event.target.value)">
-        <option value="" disabled selected>Выберете категорию</option>
-        <option>Поиск работы</option>
-        <option>Сдача помещения</option>
-        <option>Арт-команда</option>
-      </select>
-    </div>
-  </div>
-  <form (ngSubmit)="saveVacancy()" [formGroup]="form" *ngIf="selectAd === 'Поиск работы'" class="container">
+  <form (ngSubmit)="saveVacancy()" [formGroup]="form" *ngIf="role?.person?.typeUser === 'Соискатель'" class="container">
     <div class="category">
       <label for="vacancy" class="sr-only"></label>
       <p>Вакансия:</p>
@@ -83,13 +71,6 @@
     <div class="header">
       <h1>Место работы</h1>
     </div>
-    <div [style]="{'width': '70%'}">
-      <label for="coordinate" class="sr-only"></label>
-      <input id="coordinate"
-             type="text"
-             class="form-control"
-             placeholder="Напиши желаемую точку работы" formControlName="coordinate">
-    </div>
     <agm-map
       [latitude]="lat"
       [longitude]="lng"
@@ -100,15 +81,13 @@
 
       <agm-marker
         *ngFor="let m of markers; let i = index"
-        (markerClick)="clickedMarker(m.label, i)"
         [latitude]="m.lat"
         [longitude]="m.lng"
         [label]="m.label"
-        [markerDraggable]="m.draggable"
-        (dragEnd)="markerDragEnd(m, $event)">
+        [markerDraggable]="m.draggable">
 
         <agm-info-window>
-          <strong>InfoWindow content</strong>
+          <strong>{{ form.value?.vacancy }}</strong>
         </agm-info-window>
 
       </agm-marker>
@@ -146,7 +125,7 @@
       </div>
     </div>
   </form>
-  <form (ngSubmit)="saveVacancy()" [formGroup]="form" *ngIf="selectAd === 'Сдача помещения'" class="container">
+  <form (ngSubmit)="saveVacancy()" [formGroup]="form" *ngIf="role?.person?.typeUser === 'Арендодатель'" class="container">
     <div class="category">
       <p>Тип офиса:</p>
       <label for="vacancy" class="sr-only"></label>
@@ -203,12 +182,10 @@
 
       <agm-marker
         *ngFor="let m of markers; let i = index"
-        (markerClick)="clickedMarker(m.label, i)"
         [latitude]="m.lat"
         [longitude]="m.lng"
         [label]="m.label"
-        [markerDraggable]="m.draggable"
-        (dragEnd)="markerDragEnd(m, $event)">
+        [markerDraggable]="m.draggable">
 
         <agm-info-window>
           <strong>InfoWindow content</strong>
@@ -258,7 +235,7 @@
       </div>
     </div>
   </form>
-  <form (ngSubmit)="saveVacancy()" [formGroup]="form" *ngIf="selectAd === 'Арт-команда'" class="container">
+  <form (ngSubmit)="saveVacancy()" [formGroup]="form" *ngIf="role?.person?.typeUser === 'Арт-команда'" class="container">
     <div class="category">
       <p>Специализация:</p>
       <label for="vacancy" class="sr-only"></label>
@@ -314,12 +291,10 @@
 
       <agm-marker
         *ngFor="let m of markers; let i = index"
-        (markerClick)="clickedMarker(m.label, i)"
         [latitude]="m.lat"
         [longitude]="m.lng"
         [label]="m.label"
-        [markerDraggable]="m.draggable"
-        (dragEnd)="markerDragEnd(m, $event)">
+        [markerDraggable]="m.draggable">
 
         <agm-info-window>
           <strong>InfoWindow content</strong>

@@ -69,7 +69,7 @@ export class ApiService {
   public setVacancy(body, images: any): Observable<any> {
     const formData: FormData = new FormData();
     images.forEach((image, index) => {
-      formData.append(`image${index + 1}`, image.fileToUpload, image.fileToUpload.name);
+      formData.append(`image${index + 1}`, image.fileToUpload, image.fileToUpload?.name);
     });
     formData.append('user', body.user);
     formData.append('nameNews', body.nameNews);

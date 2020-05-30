@@ -12,7 +12,7 @@ import {
   VacancyComponent
 } from './modules/page/page';
 import { AuthLayoutComponent, SiteLayoutComponent, AuthGuard } from '../app/shared/shared';
-import { CreateNewsComponent } from './modules/components/components';
+import { ArtCommandComponent, CreateNewsComponent} from './modules/components/components';
 
 const routes: Routes = [
   {
@@ -32,6 +32,7 @@ const routes: Routes = [
       { path: 'person', component: PersonComponent },
       { path: 'maps', component: MapComponent },
       { path: 'ad', component: CreateNewsComponent },
+      { path: 'art-command', component: ArtCommandComponent },
       { path: 'vacancy', component: VacancyComponent },
       { path: 'setting', component: SettingComponent }
     ]

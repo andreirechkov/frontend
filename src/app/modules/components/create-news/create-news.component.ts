@@ -4,14 +4,8 @@ import { ApiService } from '../../../shared/service/api.service';
 import {takeUntil} from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import {marker} from '../../../shared/interface/marker';
 
-// just an interface for type safety.
-interface marker {
-  lat: number;
-  lng: number;
-  label?: string;
-  draggable: boolean;
-}
 
 @Component({
   selector: 'app-create-news',
@@ -23,7 +17,9 @@ export class CreateNewsComponent implements OnInit, OnDestroy {
   public lat: number = 47.23629625;
   public lng: number = 39.71261501;
   public selectAd: string = '';
-  public images: Array<any> = [{fileToUpload: null}]
+  public markers: marker[] = [];
+  public role: any;
+  public images: Array<any> = [ {fileToUpload: null} ];
   public form: FormGroup;
 
   private destroy$ = new Subject();
@@ -31,10 +27,12 @@ export class CreateNewsComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder,
               private api: ApiService,
               private router: Router) {
-
   }
 
   ngOnInit(): void {
+    this.api.getUser(this.api.getUserId()).subscribe(role => {
+      this.role = role;
+    })
     this.form = this.formBuilder.group({
       user: ['', []],
       nameNews: ['', []],
@@ -63,14 +61,8 @@ export class CreateNewsComponent implements OnInit, OnDestroy {
   public saveVacancy(): void {
     const user = Object.assign({}, this.form.value);
     user.user = this.api.getUserId();
-    if (this.selectAd === 'Арт-команда') {
-      user.nameNews = 'Арт-команда';
-    } else if (this.selectAd === 'Сдача помещения') {
-      user.nameNews = 'Аренда помещения';
-    } else {
-      user.nameNews = 'Соискатель';
-    }
-    user.coordinate = `${this.lat},${this.lng}`;
+    user.nameNews = this.role.person.typeUser;
+    user.coordinate = this.form.value.coordinate = `${this.markers[0].lat}, ${this.markers[0].lng}`;
     this.api.setVacancy(user, this.images)
       .pipe(takeUntil(this.destroy$))
       .subscribe(res => {
@@ -93,43 +85,17 @@ export class CreateNewsComponent implements OnInit, OnDestroy {
 
   public deleteImage(): void {
     this.images.pop();
-  }
+  }29
 
-  clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`)
-  }
-
-  mapClicked($event: any) {
+  public mapClicked($event: any) {
     this.markers.push({
       lat: $event.coords.lat,
       lng: $event.coords.lng,
       draggable: true
     });
-  }
-
-  markerDragEnd(m: marker, $event: MouseEvent) {
-    console.log('dragEnd', m, $event);
-  }
-
-  markers: marker[] = [
-    {
-      lat: 51.673858,
-      lng: 7.815982,
-      label: 'A',
-      draggable: true
-    },
-    {
-      lat: 51.373858,
-      lng: 7.215982,
-      label: 'B',
-      draggable: false
-    },
-    {
-      lat: 51.723858,
-      lng: 7.895982,
-      label: 'C',
-      draggable: true
+    if (this.markers.length > 1) {
+      this.markers.splice(0,1);
     }
-  ]
+  }
 }
 

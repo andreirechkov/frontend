@@ -20,7 +20,7 @@ import { HomeComponent, AllUserComponent, ChatComponent,
   PersonComponent, MapComponent, SettingComponent, VacancyComponent }
   from './modules/page/page'
 import { ChatContentComponent, SettingEditComponent,
-  CreateNewsComponent, SettingCreateComponent, DeleteNewsComponent, EditNewsComponent
+  CreateNewsComponent, SettingCreateComponent, DeleteNewsComponent, EditNewsComponent, ArtCommandComponent
 } from './modules/components/components'
 import { AuthLayoutComponent, SiteLayoutComponent, TokenInterceptor } from '../app/shared/shared';
 
@@ -49,7 +49,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SettingCreateComponent,
     VacancyComponent,
     DeleteNewsComponent,
-    EditNewsComponent
+    EditNewsComponent,
+    ArtCommandComponent
   ],
     imports: [
         BrowserModule,

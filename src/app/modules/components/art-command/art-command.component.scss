@@ -1,0 +1,44 @@
+.box-command {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //background-image: url("../../../../assets/art-command.jpg");
+  //opacity: 0.3;
+  background-size: cover;
+  height: 100%;
+}
+
+.box-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  background: white;
+  section {
+    display: flex;
+    font-family: cursive;
+    color: white;
+    justify-content: center;
+    background-color: #132329;;
+  }
+}
+
+.quiz {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 10px 10px;
+  cursor: pointer;
+  .photo {
+    padding: 20px;
+    &:hover {
+      background: #f5f51a;
+    }
+    img {
+      width: 400px;
+      height: 350px;
+      border-radius: 10%;
+    }
+  }
+}

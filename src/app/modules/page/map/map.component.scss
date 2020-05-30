@@ -1,13 +1,32 @@
-agm-map {
-  height: 500px;
+.container-fluid {
+  position: relative;
+  padding: 0;
+  height: 100%;
+
+  .filter {
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    left: 45%;
+    width: 170px;
+  }
+
+  agm-map {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+  }
+
+
+  * {
+    font-family: Lato;
+  }
+
+  a {
+    color: darkblue;
+  }
+
 }
-
-
-* {
-  font-family: Lato;
-}
-
-a {
-  color: darkblue;
-}
-
