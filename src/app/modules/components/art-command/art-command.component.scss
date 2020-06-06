@@ -2,8 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  //background-image: url("../../../../assets/art-command.jpg");
-  //opacity: 0.3;
+  background-image: url("../../../../assets/commnd-fon.jpg");
   background-size: cover;
   height: 100%;
 }
@@ -11,15 +10,18 @@
 .box-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   box-shadow: 0 0 30px rgba(0,0,0,0.5);
   background: white;
   section {
     display: flex;
+    text-align: center;
     font-family: cursive;
     color: white;
+    width: 900px;
     justify-content: center;
-    background-color: #132329;;
+    background-color: #132329;
   }
 }
 
@@ -33,12 +35,70 @@
   .photo {
     padding: 20px;
     &:hover {
-      background: #f5f51a;
+      background: #132329;
+      border-radius: 20px;
     }
     img {
-      width: 400px;
-      height: 350px;
+      border: 5px solid white;
+      min-width: 200px;
+      max-width: 400px;
+      min-height: 300px;
+      max-height: 300px;
       border-radius: 10%;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  section {
+    width: 400px;
+    text-align: center;
+    font-family: cursive;
+    color: white;
+    background-color: #132329;
+    h1 {
+      font-size: 30px;
+    }
+  }
+  .card {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    width: 400px;
+    height: 450px;
+    .photo {
+      padding-top: 10px;
+      img {
+        height: 150px;
+        width: 150px;
+        border-radius: 50%;
+      }
+    }
+    span {
+      width: 100%;
+      text-align: center;
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+      font-size: 20px;
+      padding: 5px 0;
+    }
+    h2 {
+      text-align: center;
+      font-size: 22px;
+    }
+    p {
+      overflow: hidden;
+      word-break: break-all;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      text-align: center;
     }
   }
 }

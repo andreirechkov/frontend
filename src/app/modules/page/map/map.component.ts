@@ -76,5 +76,4 @@ export class MapComponent implements OnInit, OnDestroy {
     this.router.navigate([`/vacancy`], {
       queryParams: { id: this.redirectId } });
   }
-
 }

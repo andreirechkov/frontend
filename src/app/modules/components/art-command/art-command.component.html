@@ -1,16 +1,35 @@
 <div class="box-command">
-  <div class="box-container">
+  <div *ngIf="switch !== 6; else selectVacancy" class="box-container">
     <section>
-      <h1>Выберите фотографию</h1>
+      <h1 *ngIf="switch !== 6">Выберите фотографию</h1>
     </section>
-    <div class="quiz">
-      <div class="photo">
-        <img [src]="artCommand[0]?.image1" alt="new">
-      </div>
-      <div class="photo">
-        <img [src]="artCommand[1]?.image2" alt="new">
+    <div [ngSwitch]="switch">
+      <div *ngFor="let command of rounds; let index">
+        <div *ngSwitchCase="command.round" class="quiz">
+          <div *ngFor="let user of command.users" class="photo">
+              <img (click)="checkCommand(command.round, user.user)" [src]="user.image" alt="new">
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+  <div>
+    <ng-template #selectVacancy>
+      <div class="content">
+        <section>
+          <h1>Создатель вакансии</h1>
+        </section>
+        <div class="card">
+          <div class="photo">
+            <img [src]="person?.person.image || defaultImage" alt="{{ person?.person?.firstName }}">
+          </div>
+          <h2 class="m-2">{{ person?.person?.firstName }} {{ person?.person?.lastName }}</h2>
+          <span>{{ person?.person?.typeUser }}</span>
+          <p>{{ person?.person?.content }}</p>
+          <button class="btn btn-danger" (click)="redirect()">Вакансия</button>
+        </div>
+      </div>
+    </ng-template>
   </div>
 </div>
 
