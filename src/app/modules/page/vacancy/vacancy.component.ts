@@ -7,6 +7,7 @@ import {BsModalService} from 'ngx-bootstrap';
 import {DeleteNewsComponent} from '../../components/delete-news/delete-news.component';
 import {EditNewsComponent} from '../../components/edit-news/edit-news.component';
 import {marker} from '../../../shared/interface/marker';
+import { User } from '../../../shared/interface/user';
 
 @Component({
   selector: 'app-vacancy',
@@ -23,6 +24,7 @@ export class VacancyComponent implements OnInit, OnDestroy {
   public images: Array<any> = [];
   public id: number;
   public markers: marker[] = [];
+  public userCreatedVacancy: User;
 
   private routeSubscription: Subscription;
   private querySubscription: Subscription;
@@ -37,6 +39,7 @@ export class VacancyComponent implements OnInit, OnDestroy {
     this.routeSubscription = route.params
       .pipe(takeUntil(this.destroy$))
       .subscribe(params=>this.id=params['id']);
+
     this.querySubscription = route.queryParams
       .pipe(takeUntil(this.destroy$))
       .subscribe(
@@ -66,6 +69,39 @@ export class VacancyComponent implements OnInit, OnDestroy {
           }
         });
     })
+    // this.api.getUser(this.vacancy.user)
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe(res => {
+    //     this.userCreatedVacancy = res;
+    //   });
+  }
+
+  public addContact(): void {
+    const body = {
+      messages: [],
+      participants: [this.api.getUserName(), this.userCreatedVacancy.username]
+    };
+    console.log(body);
+    // this.api.getChannelUsername(this.userCreatedVacancy.username)
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe((contact) => {
+    //     let exists = true;
+    //     contact.forEach(item => {
+    //       if (item.participants.includes(this.api.getUserName())) {
+    //         exists = false;
+    //       }
+    //     })
+    //     if (exists) {
+    //       this.api.setContactChannel(body).pipe(takeUntil(this.destroy$))
+    //         .subscribe(() => {},
+    //           error => console.log(error),
+    //           () => {
+    //             this.router.navigate(['/chat-messages'])
+    //           });
+    //     } else {
+    //       // this.router.navigate(['/chat-messages'])
+    //     }
+    //   });
   }
 
   ngOnDestroy(): void {

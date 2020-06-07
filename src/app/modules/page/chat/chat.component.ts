@@ -13,10 +13,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   public userChannel: any;
   public user: any;
   public dropMenu = [];
+  public filterItemMenu = [];
   public contactItem = [];
 
   private destroy$ = new Subject();
-  public selected: any;
 
   constructor(
     private api: ApiService
@@ -29,10 +29,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       .subscribe(([participants, userAll]) => {
         participants.forEach((participant, index) => {
           const array = participant.participants.filter(player => player !== this.api.getUserName());
-          this.dropMenu.push({id: index + 1, username: array[0], channelId: participant.id, messages: participant.messages});
-        })
-        this.contactItem = userAll.filter(player => player.username !== this.api.getUserName());
-        userAll.filter(user => this.dropMenu.some(participant => {
+          this.contactItem.push({id: index + 1, username: array[0], channelId: participant.id, messages: participant.messages});
+        });
+        this.dropMenu = this.filterItemMenu = this.contactItem;
+        userAll.filter(user => this.contactItem.some(participant => {
           if (user.username === participant.username) {
             participant['name'] = `${user.person.firstName} ${user.person.lastName}`
             if (user.person.image) {
@@ -41,8 +41,13 @@ export class ChatComponent implements OnInit, OnDestroy {
               participant['image'] = this.netImage;
             }
           }
-        }))
+        }));
     });
+  }
+
+  public changeShowListUser(user: object): void {
+    this.contactItem = this.filterItemMenu;
+    user ? this.contactItem = this.contactItem.filter(item => item === user) : null;
   }
 
   ngOnDestroy(): void {

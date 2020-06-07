@@ -7,19 +7,20 @@
         <rect y="40" width="40" height="5"></rect>
       </svg>
       <div class="test">
-        <ng-select [items]="contactItem"
-                   bindLabel="username"
-                   placeholder="Выбере пользователя"
-                   appendTo="body"
-                   multiple="true"
-                   [(ngModel)]="selected">
+        <ng-select [items]="dropMenu"
+                   bindLabel="name"
+                   placeholder="Выберете пользователя"
+                   [clearSearchOnAdd]="true"
+                   [hideSelected]="true"
+                   (change)="changeShowListUser($event)"
+                   [multiple]="false">
         </ng-select>
       </div>
       <div [style]="{'width': '70px'}"></div>
     </div>
     <div class="people">
       <ul>
-        <li *ngFor="let contact of dropMenu" class="contact" (click)="chatChannel(contact)">
+        <li *ngFor="let contact of contactItem" class="contact" (click)="chatChannel(contact)">
           <div class="people-info">
             <div class="image">
               <img [src]="contact.image" alt="" />
