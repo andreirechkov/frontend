@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AuthService } from "../../../shared/service/auth.service";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../shared/interface/user';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -12,7 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './sign-register.component.html',
   styleUrls: ['./sign-register.component.scss']
 })
-export class SignComponent implements OnInit, OnDestroy {
+export class SignComponent implements  OnDestroy {
 
   public form: FormGroup;
   public destroy$ = new Subject();
@@ -24,21 +24,18 @@ export class SignComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {
+    this.route.queryParams
+      .pipe(takeUntil(this.destroy$))
+      .subscribe();
+    this.initForm();
+  }
 
-  ngOnInit() {
+  public initForm(): void {
     this.form = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
-
-    this.route.queryParams
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((params: Params) => {
-      if (params['registered']) {
-      } else if (params['accessDenied']) {
-      }
-    })
   }
 
   ngOnDestroy() {

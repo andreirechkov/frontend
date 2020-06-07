@@ -10,19 +10,27 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './edit-news.component.html',
   styleUrls: ['./edit-news.component.scss']
 })
-export class EditNewsComponent implements OnInit {
+export class EditNewsComponent {
   public vacancy;
   public form: FormGroup;
   public fileToUpload: File = null;
   public onEditVacancy: EventEmitter<number> = new EventEmitter();
 
-  constructor(private bsModalRef: BsModalRef,
-              private formBuilder: FormBuilder,
-              private api: ApiService) { }
+  constructor(
+    private bsModalRef: BsModalRef,
+    private formBuilder: FormBuilder,
+    private api: ApiService
+  ) {
+    this.initForm();
+  }
 
   private destroy$ = new Subject();
 
-  ngOnInit(): void {
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+  public initForm(): void {
     this.form = this.formBuilder.group({
       user: [this.vacancy.user, [Validators.required]],
       vacancy: [this.vacancy.vacancy, [Validators.required]],
@@ -35,11 +43,6 @@ export class EditNewsComponent implements OnInit {
       email: [this.vacancy.email, [Validators.required]],
       phone: [this.vacancy.phone, [Validators.required]],
     });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   public closeModal(): void {

@@ -12,7 +12,7 @@ import {marker} from '../../../shared/interface/marker';
   templateUrl: './create-news.component.html',
   styleUrls: ['./create-news.component.scss']
 })
-export class CreateNewsComponent implements OnInit, OnDestroy {
+export class CreateNewsComponent implements OnDestroy {
   public zoom: number = 15;
   public lat: number = 47.23629625;
   public lng: number = 39.71261501;
@@ -24,15 +24,18 @@ export class CreateNewsComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject();
 
-  constructor(private formBuilder: FormBuilder,
-              private api: ApiService,
-              private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private api: ApiService,
+    private router: Router
+  ) {
+    this.api.getUser(this.api.getUserId())
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(role => this.role = role);
+    this.initForm();
   }
 
-  ngOnInit(): void {
-    this.api.getUser(this.api.getUserId()).subscribe(role => {
-      this.role = role;
-    })
+  public initForm(): void {
     this.form = this.formBuilder.group({
       user: ['', []],
       nameNews: ['', []],
@@ -52,7 +55,6 @@ export class CreateNewsComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
 
   public onFileChange(image, files: FileList): void {
     image.fileToUpload = files.item(0);
@@ -85,7 +87,7 @@ export class CreateNewsComponent implements OnInit, OnDestroy {
 
   public deleteImage(): void {
     this.images.pop();
-  }29
+  }
 
   public mapClicked($event: any) {
     this.markers.push({

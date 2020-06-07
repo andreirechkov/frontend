@@ -12,7 +12,7 @@ import { ApiService } from '../../../shared/service/api.service';
   templateUrl: './setting.component.html',
   styleUrls: ['./setting.component.scss']
 })
-export class SettingComponent implements OnInit, OnDestroy {
+export class SettingComponent implements OnDestroy {
   public user: User;
   public id: number;
   public defaultImage: any = "../assets/avatar-3.png";
@@ -21,13 +21,16 @@ export class SettingComponent implements OnInit, OnDestroy {
   private querySubscription: Subscription;
   private destroy$ = new Subject();
 
-  constructor(private api: ApiService,
-              private modalService: BsModalService,
-              private router: Router,
-              private route: ActivatedRoute) {
+  constructor(
+    private api: ApiService,
+    private modalService: BsModalService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.routeSubscription = route.params
       .pipe(takeUntil(this.destroy$))
       .subscribe(params=>this.id=params['id']);
+
     this.querySubscription = route.queryParams
       .pipe(takeUntil(this.destroy$))
       .subscribe(
@@ -35,14 +38,12 @@ export class SettingComponent implements OnInit, OnDestroy {
         this.id = queryParam['id'];
       }
     );
-  }
 
-  ngOnInit(): void {
     this.api.getUser(this.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe((user: User) => {
-      this.user = user;
-    });
+        this.user = user;
+      });
   }
 
   ngOnDestroy(): void {
@@ -56,9 +57,7 @@ export class SettingComponent implements OnInit, OnDestroy {
       participants: [this.api.getUserName(), username]
     }
     this.api.getChannelUsername(username)
-    .pipe(
-      takeUntil(this.destroy$)
-    )
+    .pipe(takeUntil(this.destroy$))
     .subscribe((contact) => {
       let exists = true;
       contact.forEach(item => {

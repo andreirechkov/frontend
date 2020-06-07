@@ -24,9 +24,11 @@ export class MapComponent implements OnInit, OnDestroy {
   private test: AgmInfoWindow;
   private destroy$ = new Subject();
 
-  constructor(private api: ApiService,
-              private router: Router) {}
-  // gmnoprint gm-bundled-control gm-bundled-control-on-bottom
+  constructor(
+    private api: ApiService,
+    private router: Router
+  ) {}
+
   ngOnInit(): void {
     this.api.getNewsAll()
       .pipe(takeUntil(this.destroy$))

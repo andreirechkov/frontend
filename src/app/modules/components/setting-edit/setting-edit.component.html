@@ -6,7 +6,8 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<form [formGroup]="form"
+<form *ngIf="form"
+      [formGroup]="form"
       class="form-signin card-reg"
       (ngSubmit)="saveChange()">
   <div class="input-date">

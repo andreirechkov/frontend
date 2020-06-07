@@ -1,29 +1,37 @@
-import {ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
-import {User} from '../../../shared/interface/user';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {BsModalRef} from 'ngx-bootstrap';
-import {AuthService} from '../../../shared/service/auth.service';
-import {takeUntil} from 'rxjs/operators';
-import {Subject} from 'rxjs';
-import {ApiService} from '../../../shared/service/api.service';
+import { Component, OnDestroy } from '@angular/core';
+import { User } from '../../../shared/interface/user';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BsModalRef } from 'ngx-bootstrap';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { ApiService } from '../../../shared/service/api.service';
 
 @Component({
   selector: 'app-setting-create',
   templateUrl: './setting-create.component.html',
   styleUrls: ['./setting-create.component.scss']
 })
-export class SettingCreateComponent implements OnInit, OnDestroy {
+export class SettingCreateComponent implements OnDestroy {
   public user: User;
   public form: FormGroup;
   public fileToUpload: File = null;
 
-  constructor(private bsModalRef: BsModalRef,
-              private formBuilder: FormBuilder,
-              private api: ApiService) { }
-
   private destroy$ = new Subject();
 
-  ngOnInit(): void {
+  constructor(
+    private bsModalRef: BsModalRef,
+    private formBuilder: FormBuilder,
+    private api: ApiService
+  ) {
+    this.initForm();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  public initForm(): void {
     this.form = this.formBuilder.group({
       user: [this.user.id, [Validators.required]],
       nameNews: ['', [Validators.required]],
@@ -31,11 +39,6 @@ export class SettingCreateComponent implements OnInit, OnDestroy {
       coordinate: ['', [Validators.required]],
       price: ['', [Validators.required]],
     });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   public closeModal(): void {

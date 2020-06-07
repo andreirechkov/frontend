@@ -18,10 +18,14 @@ export class PersonComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject();
 
-  constructor(private api: ApiService) {}
+  constructor(
+    private api: ApiService
+  ) {}
 
   ngOnInit(): void {
-    this.api.getUser(this.api.getUserId()).subscribe(role => {
+    this.api.getUser(this.api.getUserId())
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(role => {
       this.role = role.person.typeUser;
     })
     this.api.getNewsAll()

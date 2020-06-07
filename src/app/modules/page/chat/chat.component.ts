@@ -18,7 +18,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   public selected: any;
 
-  constructor(private api: ApiService) {}
+  constructor(
+    private api: ApiService
+  ) {}
 
   ngOnInit(): void {
     forkJoin(this.api.getChannel(this.api.getUserName()),

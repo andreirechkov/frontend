@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ApiService } from '../../../shared/service/api.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -10,7 +10,7 @@ import { User } from '../../../shared/interface/user';
   templateUrl: './art-command.component.html',
   styleUrls: ['./art-command.component.scss']
 })
-export class ArtCommandComponent implements OnInit, OnDestroy {
+export class ArtCommandComponent implements OnDestroy {
   public rounds = [];
   public selectCommandOne;
   public selectCommandTwo;
@@ -23,8 +23,10 @@ export class ArtCommandComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject();
 
-  constructor(private api: ApiService,
-              private router: Router) {
+  constructor(
+    private api: ApiService,
+    private router: Router
+  ) {
     this.api.getNewsAll()
       .pipe(takeUntil(this.destroy$))
       .subscribe(res => {
@@ -63,8 +65,6 @@ export class ArtCommandComponent implements OnInit, OnDestroy {
         })
       });
   }
-
-  ngOnInit(): void {}
 
   ngOnDestroy() {
     this.destroy$.next();

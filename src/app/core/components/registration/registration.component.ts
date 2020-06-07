@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AuthService } from '../../../shared/service/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit, OnDestroy {
+export class RegistrationComponent implements OnDestroy {
   public form: FormGroup;
   public destroy$ = new Subject();
   public respErrors;
@@ -21,9 +21,16 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private api: AuthService,
     private formBuilder: FormBuilder,
     private router: Router
-  ) {}
+  ) {
+    this.initForm();
+  }
 
-  ngOnInit() {
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  public initForm(): void {
     this.form = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -62,10 +69,5 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           this.errors = ['Unknown error'];
         }
       });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

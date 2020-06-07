@@ -17,13 +17,24 @@ export class SettingEditComponent implements OnInit, OnDestroy {
   public fileToUpload: File = null;
   public onSettingEdit: EventEmitter<number> = new EventEmitter();
 
-  constructor(private bsModalRef: BsModalRef,
-              private formBuilder: FormBuilder,
-              private api: ApiService) { }
-
   private destroy$ = new Subject();
 
+  constructor(
+    private bsModalRef: BsModalRef,
+    private formBuilder: FormBuilder,
+    private api: ApiService
+  ) {}
+
   ngOnInit(): void {
+    this.initForm();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  public initForm(): void {
     this.form = this.formBuilder.group({
       city: [this.user.person.city, [Validators.required]],
       content: [this.user.person.content, [Validators.required]],
@@ -35,11 +46,6 @@ export class SettingEditComponent implements OnInit, OnDestroy {
       typeUser: [this.user.person.typeUser, [Validators.required]],
       // userLinks: this.formBuilder.array([]),
     });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   public closeModal(): void {
@@ -54,10 +60,7 @@ export class SettingEditComponent implements OnInit, OnDestroy {
     const user = Object.assign({}, this.form.value);
     this.api.editProfile(user, this.fileToUpload)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(res => {
-        console.log(res);
-        this.onSettingEdit.emit(res)
-        },
+      .subscribe(res => this.onSettingEdit.emit(res),
         error => console.log(error));
     this.bsModalRef.hide();
   }

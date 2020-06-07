@@ -1,8 +1,8 @@
 import { Component, EventEmitter } from '@angular/core';
 import { ApiService } from '../../../shared/service/api.service';
 import { BsModalRef } from 'ngx-bootstrap';
-import {takeUntil} from 'rxjs/operators';
-import {Subject} from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-delete-news',
@@ -10,12 +10,13 @@ import {Subject} from 'rxjs';
   styleUrls: ['./delete-news.component.scss']
 })
 export class DeleteNewsComponent {
-
   public vacancyId: any;
   public onDeleteVacancy: EventEmitter<number> = new EventEmitter();
 
   private destroy$ = new Subject();
-  constructor(private bsModalRef: BsModalRef,
+
+  constructor(
+    private bsModalRef: BsModalRef,
     private api: ApiService
   ) { }
 
@@ -31,10 +32,7 @@ export class DeleteNewsComponent {
   public delete(): void {
     this.api.deleteVacancy(this.vacancyId)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(res => {
-          console.log(res);
-          this.onDeleteVacancy.emit(res)
-        },
+      .subscribe(res => this.onDeleteVacancy.emit(res),
         error => console.log(error));
     this.bsModalRef.hide();
   }

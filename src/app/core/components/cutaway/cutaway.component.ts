@@ -5,7 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './cutaway.component.html',
   styleUrls: ['./cutaway.component.scss']
 })
-export class CutawayComponent {
-
-  constructor() {}
-}
+export class CutawayComponent {}
