@@ -6,7 +6,8 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<form [formGroup]="form"
+<form *ngIf="form"
+    [formGroup]="form"
       class="form-signin card-reg"
       (ngSubmit)="saveChange()">
     <div class="test">
@@ -49,12 +50,36 @@
                 id="content" maxlength="400" formControlName="content"></textarea>
     </div>
     <div class="test">
-      <p>Адрес:</p>
-      <label for="coordinate" class="sr-only"></label>
-      <input id="coordinate"
-             type="text"
-             class="form-control"
-             placeholder="Напиши желаемую точку работы" formControlName="coordinate">
+      <agm-map
+        [latitude]="lat"
+        [longitude]="lng"
+        [zoom]="zoom"
+        [disableDefaultUI]="false"
+        [zoomControl]="true"
+        [mapTypeControl]="true"
+        (mapClick)="mapClicked($event)">
+
+        <agm-marker
+          *ngFor="let m of markers; let i = index"
+          [latitude]="m.lat"
+          [longitude]="m.lng"
+          [label]="m.label"
+          [markerDraggable]="m.draggable">
+
+          <agm-info-window>
+            <strong>InfoWindow content</strong>
+          </agm-info-window>
+
+        </agm-marker>
+
+        <agm-circle [latitude]="lat + 0.3" [longitude]="lng"
+                    [radius]="5000"
+                    [fillColor]="'red'"
+                    [circleDraggable]="true"
+                    [editable]="true">
+        </agm-circle>
+
+      </agm-map>
     </div>
     <div class="test">
       <p>Категория:</p>

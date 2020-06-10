@@ -77,11 +77,13 @@
     <div class="test">
       <label for="type" class="sr-only"></label>
       <p>Роль:</p>
-      <input id="type"
-             type="text"
-             class="form-control"
-             placeholder="Введите роль"
-             formControlName="typeUser">
+      <select [style]="{'width': '60%'}" id="typeUser" class="form-control" formControlName="typeUser">
+        <option value="" disabled selected>Выберите роль</option>
+        <option>Предприниматель</option>
+        <option>Арендодатель</option>
+        <option>Соискатель</option>
+        <option>Арт-команда</option>
+      </select>
     </div>
     <div class="test">
       <label for="content" class="sr-only"></label>

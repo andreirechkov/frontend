@@ -121,7 +121,7 @@
     </div>
     <div class="modal-footer">
       <div class="submit-button">
-        <input class="btn btn-primary btn-save" [disabled]="form.invalid" type="submit" value="Сохранить">
+        <input class="btn btn-primary btn-save" [disabled]="form.invalid || !markers[0]" type="submit" value="Сохранить">
       </div>
     </div>
   </form>
@@ -164,13 +164,6 @@
     </div>
     <div class="header">
       <h1>Адрес</h1>
-    </div>
-    <div [style]="{'width': '70%'}">
-      <label for="coordinate" class="sr-only"></label>
-      <input id="coordinate"
-             type="text"
-             class="form-control"
-             placeholder="Напиши желаемую точку работы" formControlName="coordinate">
     </div>
     <agm-map
       [latitude]="lat"
@@ -231,7 +224,7 @@
     </div>
     <div class="modal-footer">
       <div class="submit-button">
-        <input class="btn btn-primary btn-save" [disabled]="form.invalid" type="submit" value="Сохранить">
+        <input class="btn btn-primary btn-save" [disabled]="form.invalid || !markers[0]" type="submit" value="Сохранить">
       </div>
     </div>
   </form>
@@ -258,6 +251,9 @@
              class="form-control"
              placeholder="Напишите предварительную оплату" formControlName="price">
     </div>
+    <div class="warning-image" *ngIf="images.length < 4">
+      <span>Количество 4 фотографии</span>
+    </div>
     <div class="category" *ngFor="let image of images">
       <div class="custom-file">
         <input type="file" class="custom-file-input" id="validatedCustomFile"
@@ -273,13 +269,6 @@
     </div>
     <div class="header">
       <h1>Адрес</h1>
-    </div>
-    <div [style]="{'width': '70%'}">
-      <label for="coordinate" class="sr-only"></label>
-      <input id="coordinate"
-             type="text"
-             class="form-control"
-             placeholder="Напиши желаемую точку работы" formControlName="coordinate">
     </div>
     <agm-map
       [latitude]="lat"
@@ -331,7 +320,7 @@
     </div>
     <div class="modal-footer">
       <div class="submit-button">
-        <input class="btn btn-primary btn-save" [disabled]="form.invalid" type="submit" value="Сохранить">
+        <input class="btn btn-primary btn-save" [disabled]="form.invalid || !markers[0] || images.length < 4" type="submit" value="Сохранить">
       </div>
     </div>
   </form>

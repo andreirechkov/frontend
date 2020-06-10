@@ -23,9 +23,14 @@
   </div>
   <form (submit)="sendMessage(message)" class="message-input">
     <div class="input-group p-2">
-      <input [(ngModel)]="message" name="text" type="text" class="form-control" placeholder="Enter message" aria-label="Recipient's username">
+      <input [(ngModel)]="message"
+             name="text"
+             type="text"
+             class="form-control"
+             placeholder="Введите сообщение"
+             aria-label="Recipient's username">
       <div class="input-group-append">
-        <button class="btn btn-primary" type="submit">Send</button>
+        <button [disabled]="!message" class="btn btn-primary" type="submit">Отправить</button>
       </div>
     </div>
   </form>

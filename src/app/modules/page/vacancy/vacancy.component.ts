@@ -26,8 +26,6 @@ export class VacancyComponent implements OnInit, OnDestroy {
   public markers: marker[] = [];
   public userCreatedVacancy: User;
 
-  private routeSubscription: Subscription;
-  private querySubscription: Subscription;
   private destroy$ = new Subject();
 
   constructor(
@@ -36,17 +34,9 @@ export class VacancyComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.routeSubscription = route.params
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(params=>this.id=params['id']);
+    route.params.subscribe(params=>this.id=params['id']);
+    route.queryParams.subscribe(queryParam => this.id = queryParam['id']);
 
-    this.querySubscription = route.queryParams
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(
-        (queryParam: any) => {
-          this.id = queryParam['id'];
-        }
-      );
   }
 
   ngOnInit(): void {
@@ -68,12 +58,12 @@ export class VacancyComponent implements OnInit, OnDestroy {
             this.images.push(this.vacancy[element]);
           }
         });
+        this.api.getUser(this.vacancy.user)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(res => {
+            this.userCreatedVacancy = res;
+          });
     })
-    // this.api.getUser(this.vacancy.user)
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe(res => {
-    //     this.userCreatedVacancy = res;
-    //   });
   }
 
   public addContact(): void {
@@ -81,27 +71,26 @@ export class VacancyComponent implements OnInit, OnDestroy {
       messages: [],
       participants: [this.api.getUserName(), this.userCreatedVacancy.username]
     };
-    console.log(body);
-    // this.api.getChannelUsername(this.userCreatedVacancy.username)
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe((contact) => {
-    //     let exists = true;
-    //     contact.forEach(item => {
-    //       if (item.participants.includes(this.api.getUserName())) {
-    //         exists = false;
-    //       }
-    //     })
-    //     if (exists) {
-    //       this.api.setContactChannel(body).pipe(takeUntil(this.destroy$))
-    //         .subscribe(() => {},
-    //           error => console.log(error),
-    //           () => {
-    //             this.router.navigate(['/chat-messages'])
-    //           });
-    //     } else {
-    //       // this.router.navigate(['/chat-messages'])
-    //     }
-    //   });
+    this.api.getChannelUsername(this.userCreatedVacancy.username)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((contact) => {
+        let exists = true;
+        contact.forEach(item => {
+          if (item.participants.includes(this.api.getUserName())) {
+            exists = false;
+          }
+        })
+        if (exists) {
+          this.api.setContactChannel(body).pipe(takeUntil(this.destroy$))
+            .subscribe(() => {},
+              error => console.log(error),
+              () => {
+                this.router.navigate(['/chat-messages'])
+              });
+        } else {
+          this.router.navigate(['/chat-messages'])
+        }
+      });
   }
 
   ngOnDestroy(): void {
@@ -138,6 +127,14 @@ export class VacancyComponent implements OnInit, OnDestroy {
       )
       .subscribe(x => {
         this.vacancy = x;
+        const coordinate = this.vacancy.coordinate.split(",");
+        this.lat = parseFloat(coordinate[0]);
+        this.lng = parseFloat(coordinate[1]);
+        this.markers.push({
+          lat: this.lat,
+          lng: this.lng,
+          draggable: true
+        });
         modal.hide()
       });
   }

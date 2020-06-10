@@ -64,7 +64,7 @@ export class CreateNewsComponent implements OnDestroy {
     const user = Object.assign({}, this.form.value);
     user.user = this.api.getUserId();
     user.nameNews = this.role.person.typeUser;
-    user.coordinate = this.form.value.coordinate = `${this.markers[0].lat}, ${this.markers[0].lng}`;
+    user.coordinate = `${this.markers[0].lat}, ${this.markers[0].lng}`;
     this.api.setVacancy(user, this.images)
       .pipe(takeUntil(this.destroy$))
       .subscribe(res => {

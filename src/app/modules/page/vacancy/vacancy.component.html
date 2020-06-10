@@ -21,7 +21,7 @@
         <div *ngIf="userId !== vacancy?.user?.toString()" (click)="addContact()" class="button-send">
           <button class="btn btn-primary">Написать сообщение</button>
         </div>
-        <div *ngIf="userId === vacancy?.user?.toString()" class="button-send">
+        <div *ngIf="userId === vacancy?.user?.toString() || userId" class="button-send">
           <button class="btn btn-warning" (click)="edit()">Редактировать</button>
           <button class="btn btn-danger" (click)="delete()">Удалить</button>
         </div>
@@ -47,8 +47,9 @@
       [latitude]="lat"
       [longitude]="lng"
       [zoom]="zoom"
-      [disableDefaultUI]="false"
-      [zoomControl]="false">
+      [zoomControl]="true"
+      [mapTypeControl]="true"
+      [disableDefaultUI]="false">
 
       <agm-marker
         *ngFor="let m of markers; let i = index"
@@ -58,7 +59,8 @@
         [markerDraggable]="m.draggable">
 
         <agm-info-window>
-          <strong>{{ vacancy.nameNews }}</strong>
+          <strong>Создатель вакансии</strong>
+          <h1 [style]="{'font-size': '16px'}">{{ userCreatedVacancy?.person?.firstName}} {{ userCreatedVacancy?.person?.lastName}}</h1>
         </agm-info-window>
 
       </agm-marker>

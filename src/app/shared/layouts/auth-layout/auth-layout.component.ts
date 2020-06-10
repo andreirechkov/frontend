@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ApiService } from '../../service/api.service';
 
 @Component({
   selector: 'app-auth-layout',
@@ -6,6 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./auth-layout.component.scss']
 })
 export class AuthLayoutComponent {
+  constructor(
+    private router: Router,
+    private api: ApiService
+  ) { }
 
-  constructor() { }
+  public redirect(key: string): void {
+    if (this.api.getUserId()) {
+      this.router.navigate(['home']);
+    } else {
+      this.router.navigate([key]);
+    }
+  }
 }

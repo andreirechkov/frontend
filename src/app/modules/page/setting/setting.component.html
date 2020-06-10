@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-9">
       <div class="panel-default">
@@ -14,9 +14,9 @@
             <p class="text-muted">
               {{ user?.person?.content }}
             </p>
-            <a href=""> <img src="/assets/instagram.png" alt="..."></a>
-            <a href=""><img src="/assets/vk.png" alt="..."></a>
-            <a href=""><img src="/assets/facebook.png" alt="..."></a>
+<!--            <a href=""> <img src="/assets/instagram.png" alt="..."></a>-->
+<!--            <a href=""><img src="/assets/vk.png" alt="..."></a>-->
+<!--            <a href=""><img src="/assets/facebook.png" alt="..."></a>-->
           </div>
         </div>
       </div>
@@ -39,34 +39,14 @@
               <th><strong>Роль</strong></th>
               <td>{{ user?.person?.typeUser }}</td>
             </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">Деятельность</h4>
-        </div>
-        <div class="panel-body">
-          <table class="table profile__table">
-            <tbody>
-            <tr>
-              <th><strong>Публикации</strong></th>
-              <td>5</td>
-            </tr>
             <tr>
               <th><strong>Дата регистрации</strong></th>
               <td>{{ user?.person?.created_at | date }}</td>
             </tr>
-            <tr>
-              <th><strong>Последнее посещение</strong></th>
-              <td>1 день назад</td>
-            </tr>
             </tbody>
           </table>
         </div>
       </div>
-
     </div>
     <div class="col-xs-12 col-sm-3 contact">
       <p>
@@ -82,15 +62,6 @@
 
       <hr class="profile__contact-hr">
       <div class="profile__contact-info">
-        <div class="profile__contact-info-item">
-          <div class="profile__contact-info-icon">
-            <i class="fa fa-phone"></i>
-          </div>
-          <div class="profile__contact-info-body">
-            <h5 class="profile__contact-info-heading">Рабочий номер</h5>
-            {{ user?.person?.phone }}
-          </div>
-        </div>
         <div class="profile__contact-info-item">
           <div class="profile__contact-info-icon">
             <i class="fa fa-phone"></i>

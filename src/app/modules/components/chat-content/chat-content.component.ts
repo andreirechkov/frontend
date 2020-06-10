@@ -6,6 +6,7 @@ import { Channel } from '../../../shared/interface/channel';
 import { User } from '../../../shared/interface/user';
 import { ApiService } from '../../../shared/service/api.service';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat-content',
@@ -17,7 +18,7 @@ export class ChatContentComponent implements OnDestroy, OnChanges, AfterViewChec
   public defaultImage: any = "../assets/avatar-3.png";
   public user: User;
   public container: HTMLElement;
-  public message: string = '';
+  public message: string;
   public messageContent: Array<Message> = [];
   public wsSubscription: Subscription;
 
@@ -26,7 +27,8 @@ export class ChatContentComponent implements OnDestroy, OnChanges, AfterViewChec
 
   constructor(
     private wsService: WebsocketService,
-    private api: ApiService
+    private api: ApiService,
+    private router: Router
   ) {
     this.api.getUser()
       .pipe(takeUntil(this.destroy$))

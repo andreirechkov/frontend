@@ -1,6 +1,14 @@
 .test {
   display: flex;
   justify-content: center;
+  agm-map {
+    text-align: center;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    height: 220px;
+    width: 90%;
+  }
   p {
     width: 100px;
     padding: 14px 0 0 10px;

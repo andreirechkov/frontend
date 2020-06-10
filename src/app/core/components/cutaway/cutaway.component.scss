@@ -61,10 +61,23 @@
       .list-block {
         width: 60%;
         display: flex;
+        align-items: center;
         justify-content: center;
         align-items: center;
-        li {
-          margin: 10px;
+        .photo-li {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          li {
+            .photo {
+              img {
+                width: 200px;
+                height: 230px;
+                border-radius: 10px;
+              }
+            }
+            margin: 10px;
+          }
         }
       }
 }
@@ -76,7 +89,7 @@
   align-items: center;
   height: 650px;
   width: 100%;
-  background-color: #033c79;
+  background-color: #060624;
   color: #ffffff;
 }
 
@@ -84,6 +97,15 @@
   opacity: 0.8;
   background-image: url("../../../../assets/four-block.jpg");
   background-size: cover;
-  height: 100vh;
+  height: 80%;
   width: 100%;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background-color: #060624;
+  color: white;
 }

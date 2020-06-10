@@ -47,6 +47,10 @@ export class ApiService {
     return this.http.get<any>(API_Channel + `${username}`);
   }
 
+  public getVacancyAll(): Observable<any> {
+    return this.http.get<any>(API_NEWS);
+  }
+
   public getVacancy(id: number): Observable<any> {
     return this.http.get<any>(API_NEWS + `${id}/`);
   }

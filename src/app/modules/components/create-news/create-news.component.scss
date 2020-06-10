@@ -90,6 +90,15 @@
       justify-content: center;
       margin-top: 20px;
     }
+    .warning-image {
+      width: 100%;
+      text-align: center;
+      border: 1px solid red;
+      background-color: #f5f5f5;
+      span {
+        font-size: 20px;
+      }
+    }
   }
 }
 

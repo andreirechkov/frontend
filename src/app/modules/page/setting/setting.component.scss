@@ -1,46 +1,62 @@
-.panel-default {
-  margin: 20px;
-  background-color: #fff;
-  border: 1px solid #bbbbbb;
-  border-radius: 4px;
-}
-.panel-heading {
-  color: #333;
-  background-color: #f5f5f5;
-  border-color: #ddd;
-  padding: 5px;
-  .panel-title {
-    margin: 10px;
-    font-size: 20px;
-    color: inherit;
-  }
-}
-.panel-body {
+.container-fluid {
   display: flex;
-  padding: 10px;
-  img {
-    height: 40px;
-    width: 40px;
-    margin-right: 10px;
+  justify-content: center;
+  background-image: url("../../../../assets/fon-setting.jpg");
+  background-size: cover;
+  height: 100%;
+  .panel-default {
+    margin: 20px;
+    background-color: #fff;
+    border: 1px solid #bbbbbb;
+    border-radius: 4px;
   }
-
-  .profile__avatar {
-    img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
+  .panel-heading {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    padding: 5px;
+    .panel-title {
+      margin: 10px;
+      font-size: 20px;
+      color: inherit;
     }
   }
+  .panel-body {
+    display: flex;
+    padding: 10px;
+    img {
+      height: 40px;
+      width: 40px;
+      margin-right: 10px;
+    }
 
-  .profile__header {
-    margin: 20px;
-    word-break: break-word;
+    .profile__avatar {
+      img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+      }
+    }
+
+    .profile__header {
+      margin: 20px;
+      word-break: break-word;
+      p {
+        max-width: 450px;
+      }
+    }
   }
-}
 
   .contact {
     word-break: break-word;
     margin-top: 20px;
+    background: snow;
+    border-radius: 10px;
+    height: 300px;
+    width: 400px;
+    a {
+      margin: 10px 0;
+    }
   }
 
   .profile__contact-info-item {
@@ -51,3 +67,5 @@
     padding-left: 20px;
     color: #999999;
   }
+
+}
