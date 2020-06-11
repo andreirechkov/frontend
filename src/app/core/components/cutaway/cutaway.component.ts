@@ -18,12 +18,10 @@ export class CutawayComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe(res => {
         res.forEach((user, item) => {
-          console.log(user);
           if (item < 6) {
             this.image.push(user?.person.image)
           }
         });
-        console.log(this.image);
     });
   }
 

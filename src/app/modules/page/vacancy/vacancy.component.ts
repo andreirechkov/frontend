@@ -126,6 +126,7 @@ export class VacancyComponent implements OnInit, OnDestroy {
         switchMap(() => this.api.getVacancy(this.id))
       )
       .subscribe(x => {
+        this.markers = [];
         this.vacancy = x;
         const coordinate = this.vacancy.coordinate.split(",");
         this.lat = parseFloat(coordinate[0]);

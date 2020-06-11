@@ -21,7 +21,7 @@
         <div *ngIf="userId !== vacancy?.user?.toString()" (click)="addContact()" class="button-send">
           <button class="btn btn-primary">Написать сообщение</button>
         </div>
-        <div *ngIf="userId === vacancy?.user?.toString() || userId" class="button-send">
+        <div *ngIf="userId === vacancy?.user?.toString()" class="button-send">
           <button class="btn btn-warning" (click)="edit()">Редактировать</button>
           <button class="btn btn-danger" (click)="delete()">Удалить</button>
         </div>

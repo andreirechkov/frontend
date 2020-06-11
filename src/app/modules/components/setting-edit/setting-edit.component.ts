@@ -35,7 +35,6 @@ export class SettingEditComponent implements OnInit, OnDestroy {
   }
 
   public initForm(): void {
-    console.log(this.user);
     this.form = this.formBuilder.group({
       city: [this.user.person.city, [Validators.required]],
       content: [this.user.person.content, [Validators.required]],
