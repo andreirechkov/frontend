@@ -4,12 +4,14 @@
   background: url("../../../../assets/people-all.jpg");
   background-size: cover;
   padding: 0;
+  height: 100%;
   font-family: serif;
 
   .content {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    height: 100%;
     .card {
       display: flex;
       align-items: center;

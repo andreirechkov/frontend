@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { registerLocaleData } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
+import localeRu from '@angular/common/locales/ru';
+registerLocaleData(localeRu, 'ru');
 
 import { AgmCoreModule } from '@agm/core';
 
@@ -73,7 +77,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         NgSelectModule,
         NgbModule
     ],
-  providers: [{
+  providers: [{ provide: LOCALE_ID, useValue: 'ru' },
+    {
     provide: HTTP_INTERCEPTORS,
     multi: true,
     useClass: TokenInterceptor

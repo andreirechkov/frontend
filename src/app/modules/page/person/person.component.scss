@@ -74,7 +74,7 @@
       .content {
         p {
           overflow: hidden;
-          word-break: break-all;
+          word-break: break-word;
           display: -webkit-box;
           -webkit-line-clamp: 4;
           -webkit-box-orient: vertical;

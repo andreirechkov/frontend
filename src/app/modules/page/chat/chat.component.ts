@@ -24,7 +24,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     forkJoin(this.api.getChannel(this.api.getUserName()),
-            this.api.getUserAll().pipe(takeUntil(this.destroy$))
+      this.api.getUserAll().pipe(takeUntil(this.destroy$))
     ).pipe(takeUntil(this.destroy$))
       .subscribe(([participants, userAll]) => {
         participants.forEach((participant, index) => {
@@ -42,7 +42,7 @@ export class ChatComponent implements OnInit, OnDestroy {
             }
           }
         }));
-    });
+      });
   }
 
   public changeShowListUser(user: object): void {
